@@ -7,13 +7,16 @@ const generateLines = n => {
     lines.push(i);
   return lines.join("\n");
 }
+const dummyReadFile = function(path,encoding){
+  if(encoding!='utf-8') return;
+  if(path=='fifteenLines.txt') return generateLines(15);
+}
 describe('head', ()=>{
   describe('node head.js fifteenLines.txt',()=>{
     it('should give first 10 lines',()=>{
-      const argv = "node head.js textFiles/fifteenLines.txt".split(' ');
-      const readFile = require('fs').readFileSync;
+      const argv = "node head.js fifteenLines.txt".split(' ');
       const tenLines = generateLines(10);
-      assert.deepEqual(head(argv,readFile), tenLines);
+      assert.deepEqual(head(argv,dummyReadFile), tenLines);
     });
   });
 });
