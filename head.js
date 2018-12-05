@@ -14,7 +14,7 @@
   node ./head.js -c 5 file1 file2
 */
 
-const readFile = require('fs').readFileSync ;
+const fs = require('fs');
 
 const { head } = require('./src/headlib.js');
-process.stdout.write(head(process.argv,readFile));
+process.stdout.write(head(process.argv,fs));
