@@ -16,5 +16,15 @@ const headByBytes = function(numberOfCharacters,wholeFile){
   return portionToPrint;
 }
 
+const applyFunction = function(funcName, array, arg2){
+  let output = '';
+  let delimeter = '';
+  for (value of array){
+    let heading = "==> "+value+" <==\n";
+    output += delimeter + heading + funcName(value,arg2);
+    delimeter = '-----*******--------********------******-------'
+  }
+  return output;
+}
 
-module.exports = { headByCounts, headByBytes }
+module.exports = { headByCounts, headByBytes, applyFunction }

@@ -1,4 +1,4 @@
-const { headByCounts, headByBytes } = require('../src/lib.js');
+const { headByCounts, headByBytes, applyFunction } = require('../src/lib.js');
 const assert = require('assert').deepEqual;
 
 let sampleFile = "Senju Hashirama\nMADARA UCHIHA\n\nNaruto Uzumaki\nSasuke Uchiha\nITACHI UCHIHA\nOBITO UCHIHA\nKAKASHI HATAKE\nMinato Namikaze\nShikamaru Nara\nHinata Hyuga\nSakura Haruno\nJiraiya"
@@ -30,5 +30,13 @@ describe('Test for lib',function(){
       assert(headByBytes(16,sampleFile),'Senju Hashirama');
     });
   });
-});
+  describe('Test for applyFunction',function(){
+    it('should return a string where the outputs are seperated by delimeters',function(){
+      const sum = (x,y) => x+y;
+      let delimeter = '-----*******--------********------******-------'
+      let expectedOutput = '==> 1 <==\n11'+delimeter+'==> 2 <==\n12'+delimeter+'==> 3 <==\n13'
+      assert(applyFunction(sum,[1,2,3],10), expectedOutput);
+    });
+  })
+})
 
