@@ -7,14 +7,27 @@ const generateLines = n => {
     lines.push(i);
   return lines.join("\n");
 }
+const dummyFiles = {
+  "fifteenLines.txt": generateLines(15),
+  "tenLines.txt": generateLines(10)
+};
 const dummyReadFile = function(path,encoding){
   if(encoding!='utf-8') return;
-  if(path=='fifteenLines.txt') return generateLines(15);
+  const content = dummyFiles[path];
+  if(content == undefined) throw ('no such file ' + path);
+  return content;
 }
 describe('head', ()=>{
   describe('node head.js fifteenLines.txt',()=>{
     it('should give first 10 lines',()=>{
       const argv = "node head.js fifteenLines.txt".split(' ');
+      const tenLines = generateLines(10);
+      assert.deepEqual(head(argv,dummyReadFile), tenLines);
+    });
+  });
+  describe('node head.js tenLines.txt',()=>{
+    it('should give first 10 lines',()=>{
+      const argv = "node head.js tenLines.txt".split(' ');
       const tenLines = generateLines(10);
       assert.deepEqual(head(argv,dummyReadFile), tenLines);
     });
