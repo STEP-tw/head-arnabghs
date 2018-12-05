@@ -10,7 +10,8 @@ const generateLines = n => {
 const dummyFiles = {
   "fifteenLines.txt": generateLines(15),
   "tenLines.txt": generateLines(10),
-  "fiveLines.txt": generateLines(5)
+  "fiveLines.txt": generateLines(5),
+  "empty.txt" : generateLines(0)
 };
 const dummyReadFile = function(path,encoding){
   if(encoding!='utf-8') return;
@@ -38,6 +39,13 @@ describe('head', ()=>{
       const argv = "node head.js fiveLines.txt".split(' ');
       const fiveLines = generateLines(5);
       assert.deepEqual(head(argv,dummyReadFile), fiveLines);
+    });
+  });
+  describe('node head.js empty.txt',()=>{
+    it('should give first 10 lines',()=>{
+      const argv = "node head.js empty.txt".split(' ');
+      const empty = '';
+      assert.deepEqual(head(argv,dummyReadFile), empty);
     });
   });
 });
