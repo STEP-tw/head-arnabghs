@@ -17,4 +17,4 @@
 const readFile = require('fs').readFileSync ;
 
 const { head } = require('./src/headlib.js');
-console.log(head(process.argv,readFile));
+process.stdout.write(head(process.argv,readFile));
