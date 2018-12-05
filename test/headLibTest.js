@@ -9,7 +9,8 @@ const generateLines = n => {
 }
 const dummyFiles = {
   "fifteenLines.txt": generateLines(15),
-  "tenLines.txt": generateLines(10)
+  "tenLines.txt": generateLines(10),
+  "fiveLines.txt": generateLines(5)
 };
 const dummyReadFile = function(path,encoding){
   if(encoding!='utf-8') return;
@@ -30,6 +31,13 @@ describe('head', ()=>{
       const argv = "node head.js tenLines.txt".split(' ');
       const tenLines = generateLines(10);
       assert.deepEqual(head(argv,dummyReadFile), tenLines);
+    });
+  });
+  describe('node head.js fiveLines.txt',()=>{
+    it('should give all 5 lines',()=>{
+      const argv = "node head.js fiveLines.txt".split(' ');
+      const fiveLines = generateLines(5);
+      assert.deepEqual(head(argv,dummyReadFile), fiveLines);
     });
   });
 });
