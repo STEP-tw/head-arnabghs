@@ -5,4 +5,16 @@ const headByCounts = function(numberOfLines,wholeFile){
   return portionToPrint;
 }
 
-module.exports = { headByCounts }
+
+const headByBytes = function(numberOfCharacters,wholeFile){
+    let arrayOfChars = wholeFile.split('');
+  let portionToPrint = arrayOfChars.slice(0,numberOfCharacters);
+  if (portionToPrint[portionToPrint.length-1] == '\n'){
+    portionToPrint.pop();
+  }
+  portionToPrint =  portionToPrint.join('');
+  return portionToPrint;
+}
+
+
+module.exports = { headByCounts, headByBytes }
