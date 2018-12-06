@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, readInput, getHeadByCount } = require('../src/headlib.js');
+const { head, readInput, getHeadByCount } = require('../src/headLib.js');
 
 const generateLines = n => {
   const lines = [];

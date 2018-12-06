@@ -16,5 +16,5 @@
 
 const fs = require('fs');
 
-const { head } = require('./src/headlib.js');
+const { head } = require('./src/headLib.js');
 process.stdout.write(head(process.argv,fs));
