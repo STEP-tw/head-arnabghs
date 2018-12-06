@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, readInput, getHeadByCount } = require('../src/headLib.js');
+const { head, getHeadByCount } = require('../src/headLib.js');
 
 const generateLines = n => {
   const lines = [];
@@ -69,13 +69,7 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), fiveAndFifteenLines);
     });
   });
-  describe('Test for readInput(argv)',()=>{
-    it('for only files should return a object consisting all the files in array',()=>{
-      const argv = "node head.js fiveLines.txt fifteenLines.txt ".split(' ');
-      assert(readInput(argv),{fileNames : ["fiveLines.txt","fifteenLines.txt"]});
-    });
-  });
-  describe('Test for getHeadByCount(content,numberofLines)',()=>{
+   describe('Test for getHeadByCount(content,numberofLines)',()=>{
     it('should return the given number of lines from starting of file',()=>{
       const fifteenLines = generateLines(15);
       const expectedOutput = generateLines(10);
