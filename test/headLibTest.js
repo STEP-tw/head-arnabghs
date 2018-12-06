@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, getHeadByCount } = require('../src/headLib.js');
+const { head, getFirstNLines, readUserInput } = require('../src/headLib.js');
 
 const generateLines = n => {
   const lines = [];
@@ -66,7 +66,7 @@ describe('head', ()=>{
       const argv = "node head.js fiveLines.txt fifteenLines.txt".split(' ');
 
       let fiveAndFifteenLines = "==> fiveLines.txt <==\n"
-      fiveAndFifteenLines += generateLines(5) + "\n\n";
+      fiveAndFifteenLines += generateLines(5) + "\n";
       fiveAndFifteenLines += "==> fifteenLines.txt <==\n"
       fiveAndFifteenLines += generateLines(10);
 
@@ -80,12 +80,20 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
-   describe('Test for getHeadByCount(content,numberofLines)',()=>{
-    it('should return the given number of lines from starting of file',()=>{
-      const fifteenLines = generateLines(15);
-      const expectedOutput = generateLines(10).split('\n');
-      assert.deepEqual(getHeadByCount(fifteenLines,10),expectedOutput);
-    });
+});
+describe('getFirstNLines',()=>{
+  it('should return the given number of lines from starting of file',()=>{
+    const fifteenLines = generateLines(15);
+    const expectedOutput = generateLines(10);
+    assert.deepEqual(getFirstNLines(fifteenLines,10),expectedOutput);
   });
+});
+describe('readUserInput',()=>{
+  describe('node head one.txt',()=>{
+    it('should have linesCount=10 & fileNames=[one.txt]',()=>{
+      let user = readUserInput('node head one.txt'.split(' '));
+      assert.deepEqual(user,{linesCount:10,fileNames:['one.txt']});
+    })
+  })
 });
 
