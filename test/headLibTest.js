@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head } = require('../src/headlib.js');
+const { head, readInput } = require('../src/headlib.js');
 
 const generateLines = n => {
   const lines = [];
@@ -24,6 +24,7 @@ const existsSync = function(path){
   return true;
 }
 const fs = {readFileSync,existsSync};
+
 describe('head', ()=>{
   describe('node head.js fifteenLines.txt',()=>{
     it('should give first 10 lines',()=>{
@@ -66,6 +67,12 @@ describe('head', ()=>{
       let fiveAndFifteenLines = "==> fiveLines.txt <==\n1\n2\n3\n4\n5\n\n";
       fiveAndFifteenLines += "==> fifteenLines.txt <==\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
       assert.deepEqual(head(argv,fs), fiveAndFifteenLines);
+    });
+  });
+  describe('Test for readInput(argv)',()=>{
+    it('for only files should return a object consisting all the files in array',()=>{
+      const argv = "node head.js fiveLines.txt fifteenLines.txt ".split(' ');
+      assert(readInput(argv),{fileNames : ["fiveLines.txt","fifteenLines.txt"]});
     });
   });
 });

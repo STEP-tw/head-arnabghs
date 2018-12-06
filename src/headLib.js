@@ -1,6 +1,5 @@
 const head = function(argv,fs){
-  let fileNames = argv.slice(2);
-
+  let fileNames = readInput(argv).fileNames;
   let trimmedLines = [];
   let delimeter = [];
   for (fileName of fileNames){
@@ -16,5 +15,10 @@ const head = function(argv,fs){
   return trimmedLines.join('\n');
 }
 
-module.exports = { head };
+const readInput = function(argv){
+  let fileNames = argv.slice(2);
+  return { fileNames : fileNames };
+}
+
+module.exports = { head,readInput };
 
