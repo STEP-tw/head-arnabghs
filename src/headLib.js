@@ -3,7 +3,7 @@ const readUserInput = function(argv){
     fileNames: argv.slice(2),
     linesCount: 10
   };
-  if (argv[2][0] == '-') {
+  if (argv[2].startsWith('-')) {
     userInput.linesCount = +argv[2].slice(2);
     userInput.fileNames = argv.slice(3);
   }
