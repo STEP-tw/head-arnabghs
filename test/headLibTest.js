@@ -60,6 +60,13 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), bad);
     });
   });
-  //head: badFile: No such file or directory
-
+  describe('node head.js fiveLines.txt fifteenLines.txt',()=>{
+    it('should give heading with 5 and 10 lines',()=>{
+      const argv = "node head.js fiveLines.txt fifteenLines.txt".split(' ');
+      let fiveAndFifteenLines = "==> fiveLines.txt <==\n1\n2\n3\n4\n5\n\n";
+      fiveAndFifteenLines += "==> fifteenLines.txt <==\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
+      assert.deepEqual(head(argv,fs), fiveAndFifteenLines);
+    });
+  });
 });
+
