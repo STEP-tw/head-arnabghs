@@ -7,7 +7,7 @@ const head = function(argv,fs){
       return 'head: '+fileName+': No such file or directory';
     let content = fs.readFileSync(fileName,'utf-8');
     let heading = "==> "+fileName+" <=="
-    let lines = content.split('\n').slice(0,10);
+    let lines = getHeadByCount(content,10);
     if (fileNames.length > 1) lines.unshift(heading);
     trimmedLines = trimmedLines.concat(delimeter,lines);
     delimeter = [''];
@@ -20,5 +20,9 @@ const readInput = function(argv){
   return { fileNames : fileNames };
 }
 
-module.exports = { head,readInput };
+const getHeadByCount = function(content,numberOfLines){
+  return content.split('\n').slice(0,numberOfLines);
+}
+
+module.exports = { head,readInput, getHeadByCount };
 
