@@ -73,7 +73,7 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), fiveAndFifteenLines);
     });
   });
-  describe.skip('node ./head.js -n5 tenLines.txt',()=>{
+  describe('node ./head.js -n5 tenLines.txt',()=>{
     it('should return first 5 lines',()=> {
       const argv = "node head.js -n5 tenLines.txt".split(' ');
       let expectedOutput = generateLines(5);
