@@ -64,16 +64,27 @@ describe('head', ()=>{
   describe('node head.js fiveLines.txt fifteenLines.txt',()=>{
     it('should give heading with 5 and 10 lines',()=>{
       const argv = "node head.js fiveLines.txt fifteenLines.txt".split(' ');
-      let fiveAndFifteenLines = "==> fiveLines.txt <==\n1\n2\n3\n4\n5\n\n";
-      fiveAndFifteenLines += "==> fifteenLines.txt <==\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
+
+      let fiveAndFifteenLines = "==> fiveLines.txt <==\n"
+      fiveAndFifteenLines += generateLines(5) + "\n\n";
+      fiveAndFifteenLines += "==> fifteenLines.txt <==\n"
+      fiveAndFifteenLines += generateLines(10);
+
       assert.deepEqual(head(argv,fs), fiveAndFifteenLines);
+    });
+  });
+  describe.skip('node ./head.js -n5 tenLines.txt',()=>{
+    it('should return first 5 lines',()=> {
+      const argv = "node head.js -n5 tenLines.txt".split(' ');
+      let expectedOutput = generateLines(5);
+      assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
    describe('Test for getHeadByCount(content,numberofLines)',()=>{
     it('should return the given number of lines from starting of file',()=>{
       const fifteenLines = generateLines(15);
-      const expectedOutput = generateLines(10);
-      assert(getHeadByCount(fifteenLines,10),expectedOutput);
+      const expectedOutput = generateLines(10).split('\n');
+      assert.deepEqual(getHeadByCount(fifteenLines,10),expectedOutput);
     });
   });
 });
