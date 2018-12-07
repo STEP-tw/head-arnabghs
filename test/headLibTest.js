@@ -88,6 +88,13 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
+  describe('node ./head.js -n 5 fiveLines.txt',()=>{
+    it('should return first 5 lines',()=> {
+      const argv = "node head.js -n 5 fiveLines.txt".split(' ');
+      let expectedOutput = generateLines(5);
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    });
+  });
 });
 describe('getFirstNLines',()=>{
   it('should return the given number of lines from starting of file',()=>{
@@ -113,6 +120,12 @@ describe('readUserInput',()=>{
     it('should have linesCount= 5 & fileNames=[one.txt, two.txt]',()=>{
       let user = readUserInput('node head -n5 one.txt two.txt'.split(' '));
       assert.deepEqual(user,{linesCount:5,fileNames:['one.txt', 'two.txt']});
+    });
+  });
+  describe('node head.js -n 5 one.txt ',()=>{
+    it('should have linesCount= 5 & fileNames=[one.txt]',()=>{
+      let user = readUserInput('node head -n 5 one.txt'.split(' '));
+      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt']});
     });
   });
 });

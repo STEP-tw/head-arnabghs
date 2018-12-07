@@ -1,11 +1,8 @@
 const readUserInput = function(argv){
-  const userInput = {
-    fileNames: argv.slice(2),
-    linesCount: 10
-  };
+  const userInput = { fileNames: argv.slice(2), linesCount: 10 };
   if (argv[2].startsWith('-')) {
-    userInput.linesCount = +argv[2].slice(2);
-    userInput.fileNames = argv.slice(3);
+    userInput.linesCount = (argv[2].length == 2) ? +argv[3] : +argv[2].slice(2);
+    userInput.fileNames = (argv[2].length == 2) ? argv.slice(4) : argv.slice(3);
   }
   return userInput;
 }
