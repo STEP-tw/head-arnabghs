@@ -133,6 +133,13 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
+  describe('node head.js -c 10 fifteenLines.txt',()=>{
+    it('should return first 10 chars',()=> {
+      const argv = "node head.js -c 10 fifteenLines.txt".split(' ');
+      let expectedOutput = generateLines(5)+'\n';
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    });
+  });
 });
 
 describe('getFirstNLines',()=>{
@@ -210,6 +217,12 @@ describe('readUserInput',()=>{
     it('should have count= 5 & fileNames=[one.txt, two.txt] & type: char',()=>{
       let user = readUserInput('node head -c5 one.txt two.txt'.split(' '));
       assert.deepEqual(user,{count:5,fileNames:['one.txt', 'two.txt'], type:'char'});
+    });
+  });
+  describe('node head.js -c 10 one.txt ',()=>{
+    it('should have charcterCount= 10 & fileNames=[one.txt] & type: char',()=>{
+      let user = readUserInput('node head -c 10 one.txt'.split(' '));
+      assert.deepEqual(user,{ fileNames:['one.txt'], count: 10, type:'char'});
     });
   });
 });
