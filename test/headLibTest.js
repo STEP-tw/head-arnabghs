@@ -133,6 +133,12 @@ describe('readUserInput',()=>{
       assert.deepEqual(user,{linesCount:10,fileNames:['one.txt']});
     })
   })
+  describe('node head.js one.txt two.txt',()=>{
+    it('should have linesCount= 10 & fileNames=[one.txt, two.txt]',()=>{
+      let user = readUserInput('node head one.txt two.txt'.split(' '));
+      assert.deepEqual(user,{linesCount:10,fileNames:['one.txt', 'two.txt']});
+    });
+  });
   describe('node head.js -n5 one.txt ',()=>{
     it('should have linesCount= 5 & fileNames=[one.txt]',()=>{
       let user = readUserInput('node head -n5 one.txt'.split(' '));
