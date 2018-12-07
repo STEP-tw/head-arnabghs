@@ -80,6 +80,14 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
+  describe('node ./head.js -n5 fiveLines.txt tenLines.txt',()=>{
+    it('should return first 5 lines of  both files with heading',()=> {
+      const argv = "node head.js -n5 fiveLines.txt tenLines.txt".split(' ');
+      let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(5)+'\n';
+      expectedOutput += "==> tenLines.txt <==\n"+generateLines(5);
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    });
+  });
 });
 describe('getFirstNLines',()=>{
   it('should return the given number of lines from starting of file',()=>{
