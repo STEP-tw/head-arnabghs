@@ -18,12 +18,13 @@ const readUserInput = function(argv){
 }
 
 const head = function(argv,fs){
-  const {fileNames,count} = readUserInput(argv);
+  const {fileNames,count,type } = readUserInput(argv);
   let getHeadLines = function(path){
     if(!fs.existsSync(path)) 
       return 'head: '+path+': No such file or directory'; 
     let content = fs.readFileSync(path,'utf-8');
-    return getFirstNLines(content,count);
+    let get = (type == 'char') ? getFirstNChars : getFirstNLines;
+    return get(content,count);
   }
   let getHeadLinesWithTitle = function(path){
     return ["==> "+path+" <==",getHeadLines(path)].join('\n');

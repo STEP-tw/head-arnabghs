@@ -118,10 +118,10 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
-  describe.skip('node head.js -c10 fifteenLines.txt',()=>{
+  describe('node head.js -c10 fifteenLines.txt',()=>{
     it('should return first 10 chars',()=> {
       const argv = "node head.js -c10 fifteenLines.txt".split(' ');
-      let expectedOutput = generateLines(5);
+      let expectedOutput = generateLines(5)+'\n';
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
