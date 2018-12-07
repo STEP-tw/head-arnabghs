@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, getFirstNLines, readUserInput } = require('../src/headLib.js');
+const { head, getFirstNLines, readUserInput, getFirstNChars } = require('../src/headLib.js');
 
 const generateLines = n => {
   const lines = [];
@@ -110,7 +110,7 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
-  describe('node ./head.js -5 fiveLines.txt tenLines.txt',()=>{
+  describe('node head.js -5 fiveLines.txt tenLines.txt',()=>{
     it('should return first 5 lines of  both files with heading',()=> {
       const argv = "node head.js -5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(5)+'\n';
@@ -118,7 +118,15 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
+  describe.skip('node head.js -c10 fifteenLines.txt',()=>{
+    it('should return first 10 chars',()=> {
+      const argv = "node head.js -c10 fifteenLines.txt".split(' ');
+      let expectedOutput = generateLines(5);
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    });
+  });
 });
+
 describe('getFirstNLines',()=>{
   it('should return the given number of lines from starting of file',()=>{
     const fifteenLines = generateLines(15);
@@ -126,53 +134,68 @@ describe('getFirstNLines',()=>{
     assert.deepEqual(getFirstNLines(fifteenLines,10),expectedOutput);
   });
 });
+
+describe.skip('getFirstNChars',()=>{
+  it('should return the given number of chars from starting of file',()=>{
+    const fifteenLines = generateLines(15);
+    const expectedOutput = generateLines(5);
+    assert.deepEqual(getFirstNChars(fifteenLines,10),expectedOutput);
+  });
+});
+
 describe('readUserInput',()=>{
   describe('node head one.txt',()=>{
-    it('should have linesCount=10 & fileNames=[one.txt]',()=>{
+    it('should have count=10 & fileNames=[one.txt] & type: line',()=>{
       let user = readUserInput('node head one.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:10,fileNames:['one.txt']});
+      assert.deepEqual(user,{count:10,fileNames:['one.txt'], type: 'line'});
     })
   })
   describe('node head.js one.txt two.txt',()=>{
-    it('should have linesCount= 10 & fileNames=[one.txt, two.txt]',()=>{
+    it('should have count= 10 & fileNames=[one.txt, two.txt] & type: line',()=>{
       let user = readUserInput('node head one.txt two.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:10,fileNames:['one.txt', 'two.txt']});
+      assert.deepEqual(user,{count:10,fileNames:['one.txt', 'two.txt'], type: 'line'});
     });
   });
   describe('node head.js -n5 one.txt ',()=>{
-    it('should have linesCount= 5 & fileNames=[one.txt]',()=>{
+    it('should have count= 5 & fileNames=[one.txt] & type: line',()=>{
       let user = readUserInput('node head -n5 one.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt']});
+      assert.deepEqual(user,{count:5,fileNames:['one.txt'], type: 'line'});
     });
   });
   describe('node head.js -n5 one.txt two.txt',()=>{
-    it('should have linesCount= 5 & fileNames=[one.txt, two.txt]',()=>{
+    it('should have count= 5 & fileNames=[one.txt, two.txt] & type: line',()=>{
       let user = readUserInput('node head -n5 one.txt two.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt', 'two.txt']});
+      assert.deepEqual(user,{count:5,fileNames:['one.txt', 'two.txt'], type: 'line'});
     });
   });
   describe('node head.js -n 5 one.txt ',()=>{
-    it('should have linesCount= 5 & fileNames=[one.txt]',()=>{
+    it('should have count= 5 & fileNames=[one.txt] & type: line',()=>{
       let user = readUserInput('node head -n 5 one.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt']});
+      assert.deepEqual(user,{count:5,fileNames:['one.txt'], type: 'line'});
     });
   });
   describe('node head.js -n 5 one.txt two.txt',()=>{
-    it('should have linesCount= 5 & fileNames=[one.txt, two.txt]',()=>{
+    it('should have count= 5 & fileNames=[one.txt, two.txt] & type: line',()=>{
       let user = readUserInput('node head -n 5 one.txt two.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt', 'two.txt']});
+      assert.deepEqual(user,{count:5,fileNames:['one.txt', 'two.txt'], type: 'line'});
     });
   });
   describe('node head.js -5 one.txt ',()=>{
-    it('should have linesCount= 5 & fileNames=[one.txt]',()=>{
+    it('should have count= 5 & fileNames=[one.txt] & type: line',()=>{
       let user = readUserInput('node head -5 one.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt']});
+      assert.deepEqual(user,{count:5,fileNames:['one.txt'], type: 'line'});
     });
   });
   describe('node head.js -5 one.txt two.txt',()=>{
-    it('should have linesCount= 5 & fileNames=[one.txt, two.txt]',()=>{
+    it('should have count= 5 & fileNames=[one.txt, two.txt] & type: line',()=>{
       let user = readUserInput('node head -5 one.txt two.txt'.split(' '));
-      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt', 'two.txt']});
+      assert.deepEqual(user,{count:5,fileNames:['one.txt', 'two.txt'], type:'line'});
+    });
+  });
+  describe('node head.js -c10 one.txt ',()=>{
+    it('should have charcterCount= 10 & fileNames=[one.txt] & type: char',()=>{
+      let user = readUserInput('node head -c10 one.txt'.split(' '));
+      assert.deepEqual(user,{ fileNames:['one.txt'], count: 10, type:'char'});
     });
   });
 });
