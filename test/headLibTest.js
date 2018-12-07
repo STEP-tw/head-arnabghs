@@ -125,6 +125,14 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
+  describe('node head.js -c5 fiveLines.txt tenLines.txt',()=>{
+    it('should return first 5 chars of both files with heading',()=> {
+      const argv = "node head.js -c5 fiveLines.txt tenLines.txt".split(' ');
+      let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(3)+'\n';
+      expectedOutput += "==> tenLines.txt <==\n"+generateLines(3);
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    });
+  });
 });
 
 describe('getFirstNLines',()=>{
@@ -196,6 +204,12 @@ describe('readUserInput',()=>{
     it('should have charcterCount= 10 & fileNames=[one.txt] & type: char',()=>{
       let user = readUserInput('node head -c10 one.txt'.split(' '));
       assert.deepEqual(user,{ fileNames:['one.txt'], count: 10, type:'char'});
+    });
+  });
+  describe('node head.js -c5 one.txt two.txt',()=>{
+    it('should have count= 5 & fileNames=[one.txt, two.txt] & type: char',()=>{
+      let user = readUserInput('node head -c5 one.txt two.txt'.split(' '));
+      assert.deepEqual(user,{count:5,fileNames:['one.txt', 'two.txt'], type:'char'});
     });
   });
 });
