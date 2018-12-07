@@ -101,5 +101,10 @@ describe('readUserInput',()=>{
       assert.deepEqual(user,{linesCount:5,fileNames:['one.txt']});
     });
   });
+  describe('node head.js -n5 one.txt two.txt',()=>{
+    it('should have linesCount= 5 & fileNames=[one.txt, two.txt]',()=>{
+      let user = readUserInput('node head -n5 one.txt two.txt'.split(' '));
+      assert.deepEqual(user,{linesCount:5,fileNames:['one.txt', 'two.txt']});
+    });
+  });
 });
-
