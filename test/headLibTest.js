@@ -135,10 +135,10 @@ describe('getFirstNLines',()=>{
   });
 });
 
-describe.skip('getFirstNChars',()=>{
+describe('getFirstNChars',()=>{
   it('should return the given number of chars from starting of file',()=>{
     const fifteenLines = generateLines(15);
-    const expectedOutput = generateLines(5);
+    const expectedOutput = generateLines(5)+'\n';
     assert.deepEqual(getFirstNChars(fifteenLines,10),expectedOutput);
   });
 });
