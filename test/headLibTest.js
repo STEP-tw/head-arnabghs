@@ -175,11 +175,23 @@ describe('head', ()=>{
     });
   });
   describe('node head.js fiveLines.txt badfile.txt',()=>{
-    it('should return the present file with heading and error for missing file ',()=>{
+    it('should return the present file with heading and error for missing file at the end',()=>{
       const argv = 'node head.js fiveLines.txt badfile.txt'.split(' ');
       let expectedOutput = '==> fiveLines.txt <==\n';
       expectedOutput += generateLines(5)+'\n';
       expectedOutput += "head: badfile.txt: No such file or directory";
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    });
+  });
+  describe('node head.js fiveLines.txt badfile.txt tenLines.txt',()=>{
+    it('should return the present files with heading and error for missing file in respective places',()=>{
+      const argv = 'node head.js fiveLines.txt badfile.txt tenLines.txt'.split(' ');
+      let expectedOutput = '==> fiveLines.txt <==\n';
+      expectedOutput += generateLines(5)+'\n';
+      expectedOutput += "head: badfile.txt: No such file or directory\n";
+      expectedOutput += '==> tenLines.txt <==\n';
+      expectedOutput += generateLines(10);
+
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
