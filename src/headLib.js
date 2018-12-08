@@ -46,4 +46,9 @@ const getFirstNChars = function(content, numberOfChars){
   return content.split('').slice(0,numberOfChars).join('');
 }
 
-module.exports = { head, getFirstNLines, readUserInput, getFirstNChars};
+module.exports = { 
+  head,
+  getFirstNLines,
+  readUserInput,
+  getFirstNChars,
+  validateIllegalCount };
