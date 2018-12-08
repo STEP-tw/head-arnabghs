@@ -19,6 +19,7 @@ const readUserInput = function(argv){
 
 const head = function(argv,fs){
   const {fileNames,count,type } = readUserInput(argv);
+  if (count === 0) return "head: illegal line count -- 0";
   let getHeadLines = function(path){
     if(!fs.existsSync(path)) 
       return 'head: '+path+': No such file or directory'; 

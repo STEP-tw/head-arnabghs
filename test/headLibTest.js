@@ -148,6 +148,13 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
+  describe('node head.js -0 fiveLines.txt',()=>{
+    it('should return error messege, head: illegal line count -- 0',()=>{
+      const argv = 'node head.js -0 fiveLines.txt'.split(' ');
+      let expectedOutput = 'head: illegal line count -- 0';
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    })
+  })
 });
 
 describe('getFirstNLines',()=>{
