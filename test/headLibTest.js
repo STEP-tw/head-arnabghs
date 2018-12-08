@@ -174,6 +174,15 @@ describe('head', ()=>{
       assert.deepEqual(head(argv,fs), expectedOutput);
     });
   });
+  describe('node head.js fiveLines.txt badfile.txt',()=>{
+    it('should return the present file with heading and error for missing file ',()=>{
+      const argv = 'node head.js fiveLines.txt badfile.txt'.split(' ');
+      let expectedOutput = '==> fiveLines.txt <==\n';
+      expectedOutput += generateLines(5)+'\n';
+      expectedOutput += "head: badfile.txt: No such file or directory";
+      assert.deepEqual(head(argv,fs), expectedOutput);
+    });
+  });
 });
 
 describe('getFirstNLines',()=>{

@@ -28,6 +28,7 @@ const head = function(argv,fs){
     return get(content,count);
   }
   let getHeadLinesWithTitle = function(path){
+    if (!fs.existsSync(path)) return getHeadLines(path);
     return ["==> "+path+" <==",getHeadLines(path)].join('\n');
   }
   if(fileNames.length == 1) return getHeadLines(fileNames[0]);
