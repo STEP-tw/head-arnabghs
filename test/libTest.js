@@ -39,42 +39,42 @@ const existsSync = function(path){
   if(dummyFiles[path]==undefined) return false;
   return true;
 }
-const fs = {readFileSync,existsSync};
+const dummyfs = {readFileSync,existsSync};
 
 describe('head', ()=>{
   describe('node head.js fifteenLines.txt',()=>{
     it('should give first 10 lines',()=>{
       const argv = "node head.js fifteenLines.txt".split(' ');
       const tenLines = generateLines(10);
-      assert.deepEqual(head(argv,fs), tenLines);
+      assert.deepEqual(head(argv,dummyfs), tenLines);
     });
   });
   describe('node head.js tenLines.txt',()=>{
     it('should give first 10 lines',()=>{
       const argv = "node head.js tenLines.txt".split(' ');
       const tenLines = generateLines(10);
-      assert.deepEqual(head(argv,fs), tenLines);
+      assert.deepEqual(head(argv,dummyfs), tenLines);
     });
   });
   describe('node head.js fiveLines.txt',()=>{
     it('should give all 5 lines',()=>{
       const argv = "node head.js fiveLines.txt".split(' ');
       const fiveLines = generateLines(5);
-      assert.deepEqual(head(argv,fs), fiveLines);
+      assert.deepEqual(head(argv,dummyfs), fiveLines);
     });
   });
   describe('node head.js empty.txt',()=>{
     it('should give no lines',()=>{
       const argv = "node head.js empty.txt".split(' ');
       const empty = '';
-      assert.deepEqual(head(argv,fs), empty);
+      assert.deepEqual(head(argv,dummyfs), empty);
     });
   });
   describe('node head.js bad.txt',()=>{
     it('should give error message',()=>{
       const argv = "node head.js bad.txt".split(' ');
       const bad = "head: bad.txt: No such file or directory";
-      assert.deepEqual(head(argv,fs), bad);
+      assert.deepEqual(head(argv,dummyfs), bad);
     });
   });
   describe('node head.js fiveLines.txt fifteenLines.txt',()=>{
@@ -86,14 +86,14 @@ describe('head', ()=>{
       fiveAndFifteenLines += "==> fifteenLines.txt <==\n"
       fiveAndFifteenLines += generateLines(10);
 
-      assert.deepEqual(head(argv,fs), fiveAndFifteenLines);
+      assert.deepEqual(head(argv,dummyfs), fiveAndFifteenLines);
     });
   });
   describe('node ./head.js -n5 tenLines.txt',()=>{
     it('should return first 5 lines',()=> {
       const argv = "node head.js -n5 tenLines.txt".split(' ');
       let expectedOutput = generateLines(5);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node ./head.js -n5 fiveLines.txt tenLines.txt',()=>{
@@ -101,14 +101,14 @@ describe('head', ()=>{
       const argv = "node head.js -n5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(5)+'\n';
       expectedOutput += "==> tenLines.txt <==\n"+generateLines(5);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node ./head.js -n 5 fiveLines.txt',()=>{
     it('should return first 5 lines',()=> {
       const argv = "node head.js -n 5 fiveLines.txt".split(' ');
       let expectedOutput = generateLines(5);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node ./head.js -n 5 fiveLines.txt tenLines.txt',()=>{
@@ -116,14 +116,14 @@ describe('head', ()=>{
       const argv = "node head.js -n 5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(5)+'\n';
       expectedOutput += "==> tenLines.txt <==\n"+generateLines(5);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node ./head.js -5 fiveLines.txt',()=>{
     it('should return first 5 lines',()=> {
       const argv = "node head.js -5 fiveLines.txt".split(' ');
       let expectedOutput = generateLines(5);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -5 fiveLines.txt tenLines.txt',()=>{
@@ -131,14 +131,14 @@ describe('head', ()=>{
       const argv = "node head.js -5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(5)+'\n';
       expectedOutput += "==> tenLines.txt <==\n"+generateLines(5);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -c10 fifteenLines.txt',()=>{
     it('should return first 10 chars',()=> {
       const argv = "node head.js -c10 fifteenLines.txt".split(' ');
       let expectedOutput = generateLines(5)+'\n';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -c5 fiveLines.txt tenLines.txt',()=>{
@@ -146,14 +146,14 @@ describe('head', ()=>{
       const argv = "node head.js -c5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(3)+'\n';
       expectedOutput += "==> tenLines.txt <==\n"+generateLines(3);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -c 10 fifteenLines.txt',()=>{
     it('should return first 10 chars',()=> {
       const argv = "node head.js -c 10 fifteenLines.txt".split(' ');
       let expectedOutput = generateLines(5)+'\n';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -c 5 fiveLines.txt tenLines.txt',()=>{
@@ -161,28 +161,28 @@ describe('head', ()=>{
       const argv = "node head.js -c 5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLines(3)+'\n';
       expectedOutput += "==> tenLines.txt <==\n"+generateLines(3);
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -0 fiveLines.txt',()=>{
     it('should return error messege, head: illegal line count -- 0',()=>{
       const argv = 'node head.js -0 fiveLines.txt'.split(' ');
       let expectedOutput = 'head: illegal line count -- 0';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -n 0 fiveLines.txt',()=>{
     it('should return error messege, head: illegal line count -- 0',()=>{
       const argv = 'node head.js -n 0 fiveLines.txt'.split(' ');
       let expectedOutput = 'head: illegal line count -- 0';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -c 0 fiveLines.txt',()=>{
     it('should return error messege, head: illegal line count -- 0',()=>{
       const argv = 'node head.js -c 0 fiveLines.txt'.split(' ');
       let expectedOutput = 'head: illegal byte count -- 0';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js fiveLines.txt badfile.txt',()=>{
@@ -191,7 +191,7 @@ describe('head', ()=>{
       let expectedOutput = '==> fiveLines.txt <==\n';
       expectedOutput += generateLines(5)+'\n';
       expectedOutput += "head: badfile.txt: No such file or directory";
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js fiveLines.txt badfile.txt tenLines.txt',()=>{
@@ -203,28 +203,28 @@ describe('head', ()=>{
       expectedOutput += '==> tenLines.txt <==\n';
       expectedOutput += generateLines(10);
 
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -n r fiveLines.txt',()=>{
     it('should return error messege, head: illegal line count -- r',()=>{
       const argv = 'node head.js -n r fiveLines.txt'.split(' ');
       let expectedOutput = 'head: illegal line count -- r';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -n -5 fiveLines.txt',()=>{
     it('should return error messege, head: illegal line count -- -5',()=>{
       const argv = 'node head.js -n -5 fiveLines.txt'.split(' ');
       let expectedOutput = 'head: illegal line count -- -5';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
   describe('node head.js -n 5x fiveLines.txt',()=>{
     it('should return error messege, head: illegal line count -- 5x',()=>{
       const argv = 'node head.js -n 5x fiveLines.txt'.split(' ');
       let expectedOutput = 'head: illegal line count -- 5x';
-      assert.deepEqual(head(argv,fs), expectedOutput);
+      assert.deepEqual(head(argv,dummyfs), expectedOutput);
     });
   });
 });
@@ -338,14 +338,14 @@ describe('tail', ()=>{
     it('should give last 10 lines',()=>{
       const argv = "node tail.js fifteenLines.txt".split(' ');
       const lastTenLines = getLastLines(15,10);
-      assert.deepEqual(tail(argv,fs), lastTenLines);
+      assert.deepEqual(tail(argv,dummyfs), lastTenLines);
     });
   });
   describe('node tail.js fifteenLinesWithTrailingNewLineChar.txt',()=>{
     it('should give last 10 lines excluding newLineChar',()=>{
       const argv = "node tail.js fifteenLinesWithTrailingNewLineChar.txt".split(' ');
       const lastTenLines = getLastLines(15,10);
-      assert.deepEqual(tail(argv,fs), lastTenLines);
+      assert.deepEqual(tail(argv,dummyfs), lastTenLines);
     });
   });
 });
