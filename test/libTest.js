@@ -15,11 +15,8 @@ const generateLines = n => {
   return lines.join("\n");
 }
 
-const getLastLines = (x,y) => {
-  const lines = [];
-  for(let i=1;i<=x;i++)
-    lines.push(i);
-  return lines.slice(x-y).join("\n");
+const generateLinesfromEnd = (x,y) => {
+  return generateLines(x).split('\n').slice(-y).join('\n');
 }
 
 const dummyFiles = {
@@ -336,14 +333,14 @@ describe('tail', ()=>{
   describe('node tail.js fifteenLines.txt',()=>{
     it('should give last 10 lines',()=>{
       const argv = "node tail.js fifteenLines.txt".split(' ');
-      const lastTenLines = getLastLines(15,10);
+      const lastTenLines = generateLinesfromEnd(15,10);
       assert.deepEqual(tail(argv,dummyfs), lastTenLines);
     });
   });
   describe('node tail.js fifteenLinesWithTrailingNewLineChar.txt',()=>{
     it('should give last 10 lines excluding newLineChar',()=>{
       const argv = "node tail.js fifteenLinesWithTrailingNewLineChar.txt".split(' ');
-      const lastTenLines = getLastLines(15,10);
+      const lastTenLines = generateLinesfromEnd(15,10);
       assert.deepEqual(tail(argv,dummyfs), lastTenLines);
     });
   });
