@@ -354,4 +354,11 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), bad);
     });
   });
+  describe('node tail.js fiveLines.txt',()=>{
+    it('should give all 5 lines',()=>{
+      const argv = "node tail.js fiveLines.txt".split(' ');
+      const fiveLines = generateLines(5);
+      assert.deepEqual(tail(argv,dummyfs), fiveLines);
+    });
+  });
 });
