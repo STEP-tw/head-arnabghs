@@ -36,8 +36,7 @@ const readFileSync = function(path,encoding){
   return content;
 };
 const existsSync = function(path){
-  if(dummyFiles[path]==undefined) return false;
-  return true;
+  return dummyFiles[path] != undefined;
 }
 const dummyfs = {readFileSync,existsSync};
 
