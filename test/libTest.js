@@ -4,7 +4,9 @@ const {
   getFirstNLines,
   readUserInput,
   getFirstNChars,
-  validateIllegalCount } = require('../src/lib.js');
+  validateIllegalCount,
+  tail
+} = require('../src/lib.js');
 
 const generateLines = n => {
   const lines = [];
@@ -331,7 +333,7 @@ describe('readUserInput',()=>{
 });
 
 describe('tail', ()=>{
-  describe.skip('node tail.js fifteenLines.txt',()=>{
+  describe('node tail.js fifteenLines.txt',()=>{
     it('should give last 10 lines',()=>{
       const argv = "node tail.js fifteenLines.txt".split(' ');
       const lastTenLines = getLastLines(15,10);

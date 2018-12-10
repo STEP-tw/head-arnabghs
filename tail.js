@@ -14,5 +14,8 @@
   node ./tail.js -c 5 file1 file2
 */
 
+const fs = require('fs');
 
+const { tail } = require('./src/lib.js');
+process.stdout.write(tail(process.argv,fs));
 

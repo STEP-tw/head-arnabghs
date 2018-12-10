@@ -49,9 +49,22 @@ const getFirstNChars = function(content, numberOfChars){
   return content.split('').slice(0,numberOfChars).join('');
 }
 
+const tail = function(argv,fs){
+  let {fileNames,count,type } = readUserInput(argv);
+  let getTailLines = function(path){
+    let content = fs.readFileSync(path,'utf-8');
+    let lines = content.split('\n');
+    if (lines[lines.length - 1] == '') lines.pop();
+    return lines.slice(-10).join('\n');
+  }
+  return fileNames.map(getTailLines).join('\n');
+}
+
 module.exports = { 
   head,
   getFirstNLines,
   readUserInput,
   getFirstNChars,
-  validateIllegalCount };
+  validateIllegalCount,
+  tail
+};
