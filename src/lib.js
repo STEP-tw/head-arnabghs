@@ -52,6 +52,8 @@ const getFirstNChars = function(content, numberOfChars){
 const tail = function(argv,fs){
   let {fileNames,count,type } = readUserInput(argv);
   let getTailLines = function(path){
+    if(!fs.existsSync(path)) 
+      return 'tail: '+path+': No such file or directory';
     let content = fs.readFileSync(path,'utf-8');
     let lines = content.split('\n');
     if (lines[lines.length - 1] == '') lines.pop();

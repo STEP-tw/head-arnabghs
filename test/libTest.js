@@ -347,4 +347,11 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), lastTenLines);
     });
   });
+  describe('node tail.js bad.txt',()=>{
+    it('should give error message',()=>{
+      const argv = "node tail.js bad.txt".split(' ');
+      const bad = "tail: bad.txt: No such file or directory";
+      assert.deepEqual(tail(argv,dummyfs), bad);
+    });
+  });
 });
