@@ -4,7 +4,7 @@ const {
   getFirstNLines,
   readUserInput,
   getFirstNChars,
-  validateIllegalCount } = require('../src/headLib.js');
+  validateIllegalCount } = require('../src/lib.js');
 
 const generateLines = n => {
   const lines = [];
