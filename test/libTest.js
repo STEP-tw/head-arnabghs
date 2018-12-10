@@ -26,7 +26,8 @@ const dummyFiles = {
   "fifteenLines.txt": generateLines(15),
   "tenLines.txt": generateLines(10),
   "fiveLines.txt": generateLines(5),
-  "empty.txt" : generateLines(0)
+  "empty.txt" : generateLines(0),
+  "fifteenLinesWithTrailingNewLineChar.txt": generateLines(15)+"\n"
 };
 const readFileSync = function(path,encoding){
   if(encoding!='utf-8') return;
@@ -336,6 +337,13 @@ describe('tail', ()=>{
   describe('node tail.js fifteenLines.txt',()=>{
     it('should give last 10 lines',()=>{
       const argv = "node tail.js fifteenLines.txt".split(' ');
+      const lastTenLines = getLastLines(15,10);
+      assert.deepEqual(tail(argv,fs), lastTenLines);
+    });
+  });
+  describe('node tail.js fifteenLinesWithTrailingNewLineChar.txt',()=>{
+    it('should give last 10 lines excluding newLineChar',()=>{
+      const argv = "node tail.js fifteenLinesWithTrailingNewLineChar.txt".split(' ');
       const lastTenLines = getLastLines(15,10);
       assert.deepEqual(tail(argv,fs), lastTenLines);
     });
