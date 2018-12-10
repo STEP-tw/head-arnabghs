@@ -361,4 +361,11 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), fiveLines);
     });
   });
+  describe('node tail.js empty.txt',()=>{
+    it('should give no lines',()=>{
+      const argv = "node tail.js empty.txt".split(' ');
+      const empty = '';
+      assert.deepEqual(tail(argv,dummyfs), empty);
+    });
+  });
 });
