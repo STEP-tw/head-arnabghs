@@ -12,6 +12,14 @@ const generateLines = n => {
     lines.push(i);
   return lines.join("\n");
 }
+
+const getLastLines = (x,y) => {
+  const lines = [];
+  for(let i=1;i<=x;i++)
+    lines.push(i);
+  return lines.slice(x-y).join("\n");
+}
+
 const dummyFiles = {
   "fifteenLines.txt": generateLines(15),
   "tenLines.txt": generateLines(10),
@@ -318,6 +326,16 @@ describe('readUserInput',()=>{
     it('should have count= 5 & fileNames=[one.txt, two.txt] & type: byte',()=>{
       let user = readUserInput('node head -c 5 one.txt two.txt'.split(' '));
       assert.deepEqual(user,{count:5,fileNames:['one.txt', 'two.txt'], type:'byte'});
+    });
+  });
+});
+
+describe('tail', ()=>{
+  describe.skip('node tail.js fifteenLines.txt',()=>{
+    it('should give last 10 lines',()=>{
+      const argv = "node tail.js fifteenLines.txt".split(' ');
+      const lastTenLines = getLastLines(15,10);
+      assert.deepEqual(tail(argv,fs), lastTenLines);
     });
   });
 });
