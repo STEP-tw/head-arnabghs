@@ -5,7 +5,8 @@ const {
   readUserInput,
   getFirstNChars,
   validateIllegalCount,
-  tail
+  tail,
+  getLastNLines
 } = require('../src/lib.js');
 
 const generateLines = n => {
@@ -329,6 +330,15 @@ describe('readUserInput',()=>{
   });
 });
 
+describe('getLastNLines',()=>{
+  it('should return the given number of lines from ending of file in correct order',()=>{
+    const fifteenLines = generateLines(15);
+    const expectedOutput = generateLinesfromEnd(15,10);
+    assert.deepEqual(getLastNLines(fifteenLines,10),expectedOutput);
+  });
+});
+
+
 describe('tail', ()=>{
   describe('node tail.js fifteenLines.txt',()=>{
     it('should give last 10 lines',()=>{
@@ -365,7 +375,7 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), empty);
     });
   });
-  describe('node tail`.js fiveLines.txt fifteenLines.txt',()=>{
+  describe('node tail.js fiveLines.txt fifteenLines.txt',()=>{
     it('should give heading with 5 and 10 lines',()=>{
       const argv = "node tail.js fiveLines.txt fifteenLines.txt".split(' ');
 
