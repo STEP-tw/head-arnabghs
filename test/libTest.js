@@ -480,4 +480,10 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), expectedOutput);
     });
   });
+  describe('node tail.js -n 0 fiveLines.txt',()=>{
+    it('should not return anything at all',()=>{
+      const argv = "node tail.js -n 0 fiveLines.txt".split(' ');
+      assert.deepEqual(tail(argv,dummyfs),'');
+    });
+  });
 });

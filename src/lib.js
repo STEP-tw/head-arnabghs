@@ -63,6 +63,8 @@ const tail = function (argv, fs) {
     count,
     type
   } = readUserInput(argv);
+  count = +count;
+  if (count == 0) return '';
   let getTailLines = function (path) {
     if (!fs.existsSync(path))
       return 'tail: ' + path + ': No such file or directory';
