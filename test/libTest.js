@@ -391,9 +391,16 @@ describe('tail', ()=>{
     it('should give all 5 lines and error message for missing file',()=>{
       const argv = "node tail.js fiveLines.txt missingFile.txt".split(' ');
       let fiveLinesAndMissingFile = "==> fiveLines.txt <==\n"
-      fiveLinesAndMissingFile += generateLines(5)+'\n';
+      fiveLinesAndMissingFile += generateLinesfromEnd(5,5)+'\n';
       fiveLinesAndMissingFile += "tail: missingFile.txt: No such file or directory";
       assert.deepEqual(tail(argv,dummyfs), fiveLinesAndMissingFile);
     });
   })
+  describe('node tail.js -n5 tenLines.txt',()=>{
+    it('should return last 5 lines',()=> {
+      const argv = "node tail.js -n5 tenLines.txt".split(' ');
+      let expectedOutput = generateLinesfromEnd(10,5);
+      assert.deepEqual(tail(argv,dummyfs), expectedOutput);
+    });
+  });
 });
