@@ -27,9 +27,9 @@ const head = function (argv, fs) {
     count,
     type
   } = readUserInput(argv);
-  if (isNaN(count)) return validateIllegalCount(count, type);
+  if (isNaN(count)) return validateIllegalCountForHead(count, type);
   count = +count;
-  if (count < 1) return validateIllegalCount(count, type);
+  if (count < 1) return validateIllegalCountForHead(count, type);
   let getHeadLines = function (path) {
     if (!fs.existsSync(path))
       return 'head: ' + path + ': No such file or directory';
@@ -45,7 +45,7 @@ const head = function (argv, fs) {
   return fileNames.map(getHeadLinesWithTitle).join('\n');
 }
 
-const validateIllegalCount = function (count, type) {
+const validateIllegalCountForHead = function (count, type) {
   return 'head: illegal ' + type + ' count -- ' + count;
 }
 
@@ -94,7 +94,7 @@ module.exports = {
   getFirstNLines,
   readUserInput,
   getFirstNChars,
-  validateIllegalCount,
+  validateIllegalCountForHead,
   tail,
   getLastNLines,
   getLastNChars

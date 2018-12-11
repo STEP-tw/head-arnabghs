@@ -4,7 +4,7 @@ const {
   getFirstNLines,
   readUserInput,
   getFirstNChars,
-  validateIllegalCount,
+  validateIllegalCountForHead,
   tail,
   getLastNLines,
   getLastNChars
@@ -243,16 +243,16 @@ describe('getFirstNChars',()=>{
   });
 });
 
-describe('validateIllegalCount',()=>{
+describe('validateIllegalCountForHead',()=>{
   it('should return head: illegal line count -- 0',()=>{
     const argv = 'node head.js -n 0 fiveLines.txt';
     const expectedOutput = "head: illegal line count -- 0";
-    assert.deepEqual(validateIllegalCount(0,'line'),expectedOutput);
+    assert.deepEqual(validateIllegalCountForHead(0,'line'),expectedOutput);
   });
   it('should return head: illegal byte count -- 0',()=>{
     const argv = 'node head.js -c 0 fiveLines.txt';
     const expectedOutput = "head: illegal byte count -- 0";
-    assert.deepEqual(validateIllegalCount(0,'byte'),expectedOutput);
+    assert.deepEqual(validateIllegalCountForHead(0,'byte'),expectedOutput);
   });
 });
 
