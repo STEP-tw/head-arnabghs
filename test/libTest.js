@@ -457,4 +457,12 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), expectedOutput);
     });
   })
+  describe('node tail.js -c5 fiveLines.txt tenLines.txt',()=>{
+    it('should return last 5 chars of both files with heading',()=> {
+      const argv = "node tail.js -c5 fiveLines.txt tenLines.txt".split(' ');
+      let expectedOutput = "==> fiveLines.txt <==\n"+generateLinesfromEnd(5,3)+'\n';
+      expectedOutput += "==> tenLines.txt <==\n\n"+generateLinesfromEnd(10,2);
+      assert.deepEqual(tail(argv,dummyfs), expectedOutput);
+    });
+  });
 });
