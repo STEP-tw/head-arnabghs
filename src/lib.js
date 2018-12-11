@@ -59,7 +59,12 @@ const tail = function(argv,fs){
     if (lines[lines.length - 1] == '') lines.pop();
     return lines.slice(-10).join('\n');
   }
-  return fileNames.map(getTailLines).join('\n');
+  let getTailLinesWithTitle = function(path){
+    if (!fs.existsSync(path)) return getTailLines(path);
+    return ["==> "+path+" <==",getTailLines(path)].join('\n');
+  }
+  if(fileNames.length == 1) return getTailLines(fileNames[0]);
+  return fileNames.map(getTailLinesWithTitle).join('\n');
 }
 
 module.exports = { 

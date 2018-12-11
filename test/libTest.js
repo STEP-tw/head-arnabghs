@@ -365,4 +365,16 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), empty);
     });
   });
+  describe('node tail`.js fiveLines.txt fifteenLines.txt',()=>{
+    it('should give heading with 5 and 10 lines',()=>{
+      const argv = "node tail.js fiveLines.txt fifteenLines.txt".split(' ');
+
+      let fiveAndFifteenLines = "==> fiveLines.txt <==\n"
+      fiveAndFifteenLines += generateLinesfromEnd(5) + "\n";
+      fiveAndFifteenLines += "==> fifteenLines.txt <==\n"
+      fiveAndFifteenLines += generateLinesfromEnd(15,10);
+
+      assert.deepEqual(tail(argv,dummyfs), fiveAndFifteenLines);
+    });
+  })
 });
