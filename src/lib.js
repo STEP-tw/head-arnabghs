@@ -86,7 +86,6 @@ const getLastNLines = function (content, numberOfLines) {
 
 const getLastNChars = function (content, numberOfChars) {
   let chars = content.split('');
-  if (chars[chars.length - 1] == '') chars.pop();
   return chars.slice(-numberOfChars).join('');
 }
 
