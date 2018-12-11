@@ -467,8 +467,16 @@ describe('tail', ()=>{
   });
   describe('node tail.js -c 12 fifteenLines.txt',()=>{
     it('should return last 12 chars',()=> {
-      const argv = "node tail.js -c12 fifteenLines.txt".split(' ');
+      const argv = "node tail.js -c 12 fifteenLines.txt".split(' ');
       let expectedOutput = '\n'+generateLinesfromEnd(15,4);
+      assert.deepEqual(tail(argv,dummyfs), expectedOutput);
+    });
+  });
+  describe('node tail.js -c 5 fiveLines.txt tenLines.txt',()=>{
+    it('should return last 5 chars of both files with heading',()=> {
+      const argv = "node tail.js -c 5 fiveLines.txt tenLines.txt".split(' ');
+      let expectedOutput = "==> fiveLines.txt <==\n"+generateLinesfromEnd(5,3)+'\n';
+      expectedOutput += "==> tenLines.txt <==\n\n"+generateLinesfromEnd(10,2);
       assert.deepEqual(tail(argv,dummyfs), expectedOutput);
     });
   });
