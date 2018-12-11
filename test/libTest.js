@@ -520,4 +520,11 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), expectedOutput);
     });
   });
+  describe('node tail.js -c -12 fifteenLines.txt',()=>{
+    it('should return last 12 chars',()=> {
+      const argv = "node tail.js -c -12 fifteenLines.txt".split(' ');
+      let expectedOutput = '\n'+generateLinesfromEnd(15,4);
+      assert.deepEqual(tail(argv,dummyfs), expectedOutput);
+    });
+  })
 });
