@@ -6,7 +6,8 @@ const {
   getFirstNChars,
   validateIllegalCount,
   tail,
-  getLastNLines
+  getLastNLines,
+  getLastNChars
 } = require('../src/lib.js');
 
 const generateLines = n => {
@@ -338,6 +339,14 @@ describe('getLastNLines',()=>{
   });
 });
 
+describe('getLastNChars',()=>{
+  it('should return the given number of chars from ending of file',()=>{
+    const fifteenLines = generateLines(10);
+    const expectedOutput = generateLinesfromEnd(10,5);
+    assert.deepEqual(getLastNChars(fifteenLines,10),expectedOutput);
+  });
+});
+
 
 describe('tail', ()=>{
   describe('node tail.js fifteenLines.txt',()=>{
@@ -419,7 +428,7 @@ describe('tail', ()=>{
     });
   });
   describe('node ./tail.js -n 5 fiveLines.txt tenLines.txt',()=>{
-    it('should return first 5 lines of both files with heading',()=> {
+    it('should return last 5 lines of both files with heading',()=> {
       const argv = "node tail.js -n5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLinesfromEnd(5,5)+'\n';
       expectedOutput += "==> tenLines.txt <==\n"+generateLinesfromEnd(10,5);
@@ -427,18 +436,25 @@ describe('tail', ()=>{
     });
   });
   describe('node ./tail.js -5 fiveLines.txt',()=>{
-    it('should return first 5 lines',()=> {
+    it('should return last 5 lines',()=> {
       const argv = "node tail.js -5 fiveLines.txt".split(' ');
       let expectedOutput = generateLinesfromEnd(5,5);
       assert.deepEqual(tail(argv,dummyfs), expectedOutput);
     });
   })
   describe('node tail.js -5 fiveLines.txt tenLines.txt',()=>{
-    it('should return first 5 lines of  both files with heading',()=> {
+    it('should return last 5 lines of  both files with heading',()=> {
       const argv = "node tail.js -5 fiveLines.txt tenLines.txt".split(' ');
       let expectedOutput = "==> fiveLines.txt <==\n"+generateLinesfromEnd(5,5)+'\n';
       expectedOutput += "==> tenLines.txt <==\n"+generateLinesfromEnd(10,5);
       assert.deepEqual(tail(argv,dummyfs), expectedOutput);
     });
   });
+  describe('node tail.js -c12 fifteenLines.txt',()=>{
+    it('should return last 12 chars',()=> {
+      const argv = "node tail.js -c12 fifteenLines.txt".split(' ');
+      let expectedOutput = '\n'+generateLinesfromEnd(15,4);
+      assert.deepEqual(tail(argv,dummyfs), expectedOutput);
+    });
+  })
 });

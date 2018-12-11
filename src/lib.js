@@ -67,7 +67,8 @@ const tail = function (argv, fs) {
     if (!fs.existsSync(path))
       return 'tail: ' + path + ': No such file or directory';
     let content = fs.readFileSync(path, 'utf-8');
-    return getLastNLines(content, count);
+    let get = (type == 'byte') ? getLastNChars : getLastNLines;
+    return get(content, count);
   }
   let getTailLinesWithTitle = function (path) {
     if (!fs.existsSync(path)) return getTailLines(path);
@@ -83,6 +84,12 @@ const getLastNLines = function (content, numberOfLines) {
   return lines.slice(-numberOfLines).join('\n');
 }
 
+const getLastNChars = function (content, numberOfChars) {
+  let chars = content.split('');
+  if (chars[chars.length - 1] == '') chars.pop();
+  return chars.slice(-numberOfChars).join('');
+}
+
 module.exports = {
   head,
   getFirstNLines,
@@ -90,5 +97,6 @@ module.exports = {
   getFirstNChars,
   validateIllegalCount,
   tail,
-  getLastNLines
+  getLastNLines,
+  getLastNChars
 };
