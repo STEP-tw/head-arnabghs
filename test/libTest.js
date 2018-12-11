@@ -492,4 +492,11 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs),'');
     });
   });
+  describe('node tail.js -n r fiveLines.txt',()=>{
+    it('should return error messege, tail: illegal offset -- r',()=>{
+      const argv = 'node tail.js -n r fiveLines.txt'.split(' ');
+      let expectedOutput = 'tail: illegal offset -- r';
+      assert.deepEqual(tail(argv,dummyfs), expectedOutput);
+    });
+  })
 });

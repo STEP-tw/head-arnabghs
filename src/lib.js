@@ -63,6 +63,7 @@ const tail = function (argv, fs) {
     count,
     type
   } = readUserInput(argv);
+  if (isNaN(count)) return 'tail: illegal offset -- '+count;
   count = +count;
   if (count == 0) return '';
   let getTailLines = function (path) {
