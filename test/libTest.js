@@ -433,4 +433,12 @@ describe('tail', ()=>{
       assert.deepEqual(tail(argv,dummyfs), expectedOutput);
     });
   })
+  describe('node tail.js -5 fiveLines.txt tenLines.txt',()=>{
+    it('should return first 5 lines of  both files with heading',()=> {
+      const argv = "node tail.js -5 fiveLines.txt tenLines.txt".split(' ');
+      let expectedOutput = "==> fiveLines.txt <==\n"+generateLinesfromEnd(5,5)+'\n';
+      expectedOutput += "==> tenLines.txt <==\n"+generateLinesfromEnd(10,5);
+      assert.deepEqual(tail(argv,dummyfs), expectedOutput);
+    });
+  });
 });
