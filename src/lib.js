@@ -64,7 +64,7 @@ const tail = function (argv, fs) {
     type
   } = readUserInput(argv);
   if (isNaN(count)) return 'tail: illegal offset -- '+count;
-  count = +count;
+  count = Math.abs(+count);
   if (count == 0) return '';
   let getTailLines = function (path) {
     if (!fs.existsSync(path))
