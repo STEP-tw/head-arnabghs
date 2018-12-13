@@ -63,7 +63,7 @@ const tail = function (argv, fs) {
     count,
     type
   } = readUserInput(argv);
-  if (isNaN(count)) return 'tail: illegal offset -- '+count;
+  if (isNaN(count)) return 'tail: illegal offset -- ' + count;
   count = Math.abs(+count);
   if (count == 0) return '';
   let getTailLines = function (path) {
@@ -82,8 +82,7 @@ const tail = function (argv, fs) {
 }
 
 const getLastNLines = function (content, numberOfLines) {
-  let lines = content.split('\n');
-  if (lines[lines.length - 1] == '') lines.pop();
+  let lines = content.trim().split('\n');
   return lines.slice(-numberOfLines).join('\n');
 }
 
