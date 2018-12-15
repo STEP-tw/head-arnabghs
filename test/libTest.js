@@ -245,19 +245,6 @@ describe('getFirstNChars', () => {
   });
 });
 
-describe('validateIllegalCountForHead', () => {
-  it('should return head: illegal line count -- 0', () => {
-    const argv = 'node head.js -n 0 fiveLines.txt';
-    const expectedOutput = "head: illegal line count -- 0";
-    assert.deepEqual(validateIllegalCountForHead(0, 'line'), expectedOutput);
-  });
-  it('should return head: illegal byte count -- 0', () => {
-    const argv = 'node head.js -c 0 fiveLines.txt';
-    const expectedOutput = "head: illegal byte count -- 0";
-    assert.deepEqual(validateIllegalCountForHead(0, 'byte'), expectedOutput);
-  });
-});
-
 
 describe('getLastNLines', () => {
   it('should return the given number of lines from ending of file in correct order', () => {

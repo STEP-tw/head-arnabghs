@@ -2,6 +2,10 @@ const {
   readUserInput
 } = require('./parse.js');
 
+const {
+  checkErrors
+} = require('./error.js');
+
 const formatContent = function (command, fs, fileNames, type, count) {
   let getContent = function (path) {
     if (!fs.existsSync(path))
@@ -29,15 +33,15 @@ const head = function (argv, fs) {
     count,
     type
   } = readUserInput(argv);
-  if (isNaN(count)) return validateIllegalCountForHead(count, type);
+  let {
+    errorExist,
+    errorMsg
+  } = checkErrors('head', count, type);
+  if (errorExist) return errorMsg;
   count = +count;
-  if (count < 1) return validateIllegalCountForHead(count, type);
   return formatContentForHead(fs, fileNames, type, count);
 }
 
-const validateIllegalCountForHead = function (count, type) {
-  return 'head: illegal ' + type + ' count -- ' + count;
-}
 
 const getFirstNLines = function (content, numberOfLines) {
   return content.split('\n').slice(0, numberOfLines).join('\n');
@@ -53,9 +57,12 @@ const tail = function (argv, fs) {
     count,
     type
   } = readUserInput(argv);
-  if (isNaN(count)) return 'tail: illegal offset -- ' + count;
+  let {
+    errorExist,
+    errorMsg
+  } = checkErrors('tail', count, type);
+  if (errorExist) return errorMsg;
   count = Math.abs(+count);
-  if (count == 0) return '';
   return formatContentForTail(fs, fileNames, type, count);
 }
 
@@ -70,12 +77,10 @@ const getLastNChars = function (content, numberOfChars) {
 }
 
 
-
 module.exports = {
   head,
   getFirstNLines,
   getFirstNChars,
-  validateIllegalCountForHead,
   tail,
   getLastNLines,
   getLastNChars
