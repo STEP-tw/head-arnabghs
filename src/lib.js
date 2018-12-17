@@ -26,14 +26,14 @@ const getLastNChars = function(content, numberOfChars) {
   return chars.slice(-numberOfChars).join("");
 };
 
-const formatContent = function(command, fs, fileNames, type, count) {
+const formatContent = function(command, fs, fileNames, option, count) {
   let getContent = function(path) {
     if (!fs.existsSync(path))
       return command + ": " + path + ": No such file or directory";
     let content = fs.readFileSync(path, "utf-8");
     let getChar = command == "tail" ? getLastNChars : getFirstNChars;
     let getLine = command == "tail" ? getLastNLines : getFirstNLines;
-    let get = type == "byte" ? getChar : getLine;
+    let get = option == "byte" ? getChar : getLine;
     return get(content, count);
   };
   let getContentWithTitle = function(path) {
@@ -48,18 +48,18 @@ const formatContentForHead = formatContent.bind(null, "head");
 const formatContentForTail = formatContent.bind(null, "tail");
 
 const head = function(argv, fs) {
-  let { fileNames, count, type } = readUserInput(argv);
-  let { errorExist, errorMsg } = checkErrors("head", count, type);
+  let { fileNames, count, option } = readUserInput(argv);
+  let { errorExist, errorMsg } = checkErrors("head", count, option);
   if (errorExist) return errorMsg;
-  return formatContentForHead(fs, fileNames, type, count);
+  return formatContentForHead(fs, fileNames, option, count);
 };
 
 const tail = function(argv, fs) {
-  let { fileNames, count, type } = readUserInput(argv);
-  let { errorExist, errorMsg } = checkErrors("tail", count, type);
+  let { fileNames, count, option } = readUserInput(argv);
+  let { errorExist, errorMsg } = checkErrors("tail", count, option);
   if (errorExist) return errorMsg;
   count = Math.abs(+count);
-  return formatContentForTail(fs, fileNames, type, count);
+  return formatContentForTail(fs, fileNames, option, count);
 };
 
 module.exports = {

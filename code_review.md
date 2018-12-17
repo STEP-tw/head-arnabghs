@@ -20,7 +20,7 @@
 
 3.  parse.js ->
 
-- [] a. rename type with option.
+- [x] a. rename type with option.
 
 - [] b. smaller functions can be extracted to make it more readable.
 
