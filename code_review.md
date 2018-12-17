@@ -3,7 +3,7 @@
 - [] a. checkError(): misleading function name because its only checking count,
   unnecessary if condition, smaller functions can extracted.
 
-- [] b. validateIllegalCountForHead : misleading name because its not validating count its generating message.
+- [x] b. validateIllegalCountForHead : misleading name because its not validating count its generating message.
 
 2.  lib.js ->
 
