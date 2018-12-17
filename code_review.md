@@ -1,7 +1,7 @@
 1.  error.js ->
 
-- [] a. checkError(): misleading function name because its only checking count,
-  unnecessary if condition, smaller functions can extracted.
+- [x] a. checkError(): misleading function name because its only checking count,
+      unnecessary if condition, smaller functions can extracted.
 
 - [x] b. validateIllegalCountForHead : misleading name because its not validating count its generating message.
 

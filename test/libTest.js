@@ -407,15 +407,31 @@ describe("tail", () => {
     });
   });
   describe("node tail.js -n 0 fiveLines.txt", () => {
-    it("should not return anything at all", () => {
+    it("should return empty string", () => {
       const argv = "node tail.js -n 0 fiveLines.txt".split(" ");
       assert.deepEqual(tail(argv, dummyfs), "");
     });
   });
   describe("node tail.js -c 0 fiveLines.txt", () => {
-    it("should not return anything at all", () => {
+    it("should return empty string", () => {
       const argv = "node tail.js -c 0 fiveLines.txt".split(" ");
       assert.deepEqual(tail(argv, dummyfs), "");
+    });
+  });
+  describe("node tail.js -n 0 fiveLines.txt tenLines.txt", () => {
+    it("should return empty string with heading of the files", () => {
+      const argv = "node tail.js -n 0 fiveLines.txt tenLines.txt".split(" ");
+      const expectedOutput =
+        "==> fiveLines.txt <==\n" + "\n==> tenLines.txt <==\n";
+      assert.deepEqual(tail(argv, dummyfs), expectedOutput);
+    });
+  });
+  describe("node tail.js -c 0 fiveLines.txt tenLines.txt", () => {
+    it("should return empty string with heading of the files", () => {
+      const argv = "node tail.js -c 0 fiveLines.txt tenLines.txt".split(" ");
+      const expectedOutput =
+        "==> fiveLines.txt <==\n" + "\n==> tenLines.txt <==\n";
+      assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
   describe("node tail.js -n r fiveLines.txt", () => {
