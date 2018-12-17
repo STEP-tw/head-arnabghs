@@ -1,16 +1,16 @@
-1.  error.js -> 
+1.  error.js ->
 
 - [] a. checkError(): misleading function name because its only checking count,
-    unnecessary if condition, smaller functions can extracted.
+  unnecessary if condition, smaller functions can extracted.
 
 - [] b. validateIllegalCountForHead : misleading name because its not validating count its generating message.
 
-2.  lib.js -> 
+2.  lib.js ->
 
 - [] a. formatContent(): functions defined inside this can be defined outside. eg. getContent, getcontentWithTitle ,
-    instead of ternary operaters object can be used.
+  instead of ternary operaters object can be used.
 
-- [] b. head(): line 41 not necessary.
+- [x] b. head(): line 41 not necessary.
 
 - [] c. tail(): duplicate code like head.
 
@@ -18,7 +18,7 @@
 
 - [] e. duplication in getFirstNLines, getFirstNBytes, getLastNChars, getLastNLines.
 
-3.  parse.js -> 
+3.  parse.js ->
 
 - [] a. rename type with option.
 
