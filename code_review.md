@@ -1,23 +1,31 @@
-1.  error.js -> a. checkError(): misleading function name because its only checking count,
+1.  error.js -> 
+
+- [] a. checkError(): misleading function name because its only checking count,
     unnecessary if condition, smaller functions can extracted.
 
-    b. validateIllegalCountForHead : misleading name because its not validating count its generating message.
+- [] b. validateIllegalCountForHead : misleading name because its not validating count its generating message.
 
-2.  lib.js -> a. formatContent(): functions defined inside this can be defined outside. eg. getContent, getcontentWithTitle ,
+2.  lib.js -> 
+
+- [] a. formatContent(): functions defined inside this can be defined outside. eg. getContent, getcontentWithTitle ,
     instead of ternary operaters object can be used.
 
-    b. head(): line 41 not necessary.
+- [] b. head(): line 41 not necessary.
 
-    c. tail(): duplicate code like head.
+- [] c. tail(): duplicate code like head.
 
-    d. functions used in other function should defined before. eg.getFirstNLines etc.
+- [] d. functions used in other function should defined before. eg.getFirstNLines etc.
 
-    e. duplication in getFirstNLines, getFirstNBytes, getLastNChars, getLastNLines.
+- [] e. duplication in getFirstNLines, getFirstNBytes, getLastNChars, getLastNLines.
 
-3.  parse.js -> a. rename type with option.
+3.  parse.js -> 
 
-    b. smaller functions can be extracted to make it more readable.
+- [] a. rename type with option.
 
-4.  test -> a. it messages can be improved.
+- [] b. smaller functions can be extracted to make it more readable.
 
-    b. expected output should be hardcoded within it block.
+4.  test ->
+
+- [] a. it messages can be improved.
+
+- [] b. expected output should be hardcoded within it block.
