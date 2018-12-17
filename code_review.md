@@ -7,8 +7,8 @@
 
 2.  lib.js ->
 
-- [] a. formatContent(): functions defined inside this can be defined outside. eg. getContent, getcontentWithTitle ,
-  instead of ternary operaters object can be used.
+- [x] a. formatContent(): functions defined inside this can be defined outside. eg. getContent, getcontentWithTitle ,
+      instead of ternary operaters object can be used.
 
 - [x] b. head(): line 41 not necessary.
 

@@ -33,37 +33,48 @@ const utilities = {
   tail: { line: getLastNLines, byte: getLastNChars }
 };
 
-const formatContent = function(command, fs, fileNames, option, count) {
-  const getContent = function(path) {
-    if (!fs.existsSync(path))
-      return command + ": " + path + ": No such file or directory";
-    let content = fs.readFileSync(path, "utf-8");
-    return utilities[command][option](content, count);
-  };
-  const getContentWithTitle = function(path) {
-    if (!fs.existsSync(path)) return getContent(path);
-    return ["==> " + path + " <==", getContent(path)].join("\n");
-  };
-  if (fileNames.length == 1) return getContent(fileNames[0]);
-  return fileNames.map(getContentWithTitle).join("\n");
+const getContent = function(command, path, userInputs, fs) {
+  if (!fs.existsSync(path))
+    return command + ": " + path + ": No such file or directory";
+  let content = fs.readFileSync(path, "utf-8");
+  let { option, count } = userInputs;
+  if (command == "tail") count = Math.abs(count);
+  return utilities[command][option](content, count);
+};
+
+const getContentWithTitle = function(command, userInputs, fs, path) {
+  if (!fs.existsSync(path)) return getContent(command, path, userInputs, fs);
+  return [
+    "==> " + path + " <==",
+    getContent(command, path, userInputs, fs)
+  ].join("\n");
+};
+
+const formatContent = function(command, fs, userInputs) {
+  let { fileNames } = userInputs;
+  if (fileNames.length == 1)
+    return getContent(command, fileNames[0], userInputs, fs);
+  const mapper = getContentWithTitle.bind(null, command, userInputs, fs);
+  return fileNames.map(mapper).join("\n");
 };
 
 const formatContentForHead = formatContent.bind(null, "head");
 const formatContentForTail = formatContent.bind(null, "tail");
 
 const head = function(argv, fs) {
-  let { fileNames, count, option } = readUserInput(argv);
+  let userInputs = readUserInput(argv);
+  let { count, option } = userInputs;
   let { errorExist, errorMsg } = handleErrorForHead(count, option);
   if (errorExist) return errorMsg;
-  return formatContentForHead(fs, fileNames, option, count);
+  return formatContentForHead(fs, userInputs);
 };
 
 const tail = function(argv, fs) {
-  let { fileNames, count, option } = readUserInput(argv);
+  let userInputs = readUserInput(argv);
+  let { count, option } = userInputs;
   let { errorExist, errorMsg } = handelErrorForTail(count, option);
   if (errorExist) return errorMsg;
-  count = Math.abs(count);
-  return formatContentForTail(fs, fileNames, option, count);
+  return formatContentForTail(fs, userInputs);
 };
 
 module.exports = {
