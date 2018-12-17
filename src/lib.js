@@ -2,6 +2,30 @@ const { readUserInput } = require("./parse.js");
 
 const { checkErrors } = require("./error.js");
 
+const getFirstNLines = function(content, numberOfLines) {
+  return content
+    .split("\n")
+    .slice(0, numberOfLines)
+    .join("\n");
+};
+
+const getFirstNChars = function(content, numberOfChars) {
+  return content
+    .split("")
+    .slice(0, numberOfChars)
+    .join("");
+};
+
+const getLastNLines = function(content, numberOfLines) {
+  let lines = content.trim().split("\n");
+  return lines.slice(-numberOfLines).join("\n");
+};
+
+const getLastNChars = function(content, numberOfChars) {
+  let chars = content.split("");
+  return chars.slice(-numberOfChars).join("");
+};
+
 const formatContent = function(command, fs, fileNames, type, count) {
   let getContent = function(path) {
     if (!fs.existsSync(path))
@@ -30,36 +54,12 @@ const head = function(argv, fs) {
   return formatContentForHead(fs, fileNames, type, count);
 };
 
-const getFirstNLines = function(content, numberOfLines) {
-  return content
-    .split("\n")
-    .slice(0, numberOfLines)
-    .join("\n");
-};
-
-const getFirstNChars = function(content, numberOfChars) {
-  return content
-    .split("")
-    .slice(0, numberOfChars)
-    .join("");
-};
-
 const tail = function(argv, fs) {
   let { fileNames, count, type } = readUserInput(argv);
   let { errorExist, errorMsg } = checkErrors("tail", count, type);
   if (errorExist) return errorMsg;
   count = Math.abs(+count);
   return formatContentForTail(fs, fileNames, type, count);
-};
-
-const getLastNLines = function(content, numberOfLines) {
-  let lines = content.trim().split("\n");
-  return lines.slice(-numberOfLines).join("\n");
-};
-
-const getLastNChars = function(content, numberOfChars) {
-  let chars = content.split("");
-  return chars.slice(-numberOfChars).join("");
 };
 
 module.exports = {

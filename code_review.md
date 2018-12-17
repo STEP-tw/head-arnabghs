@@ -14,7 +14,7 @@
 
 - [] c. tail(): duplicate code like head.
 
-- [] d. functions used in other function should defined before. eg.getFirstNLines etc.
+- [x] d. functions used in other function should defined before. eg.getFirstNLines etc.
 
 - [] e. duplication in getFirstNLines, getFirstNBytes, getLastNChars, getLastNLines.
 
