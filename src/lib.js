@@ -1,6 +1,6 @@
 const { readUserInput } = require("./parse.js");
 
-const { checkErrors } = require("./error.js");
+const { handleErrorForHead, handelErrorForTail } = require("./error.js");
 
 const getFirstNLines = function(content, numberOfLines) {
   return content
@@ -17,11 +17,13 @@ const getFirstNChars = function(content, numberOfChars) {
 };
 
 const getLastNLines = function(content, numberOfLines) {
+  if (numberOfLines == 0) return "";
   let lines = content.trim().split("\n");
   return lines.slice(-numberOfLines).join("\n");
 };
 
 const getLastNChars = function(content, numberOfChars) {
+  if (numberOfChars == 0) return "";
   let chars = content.split("");
   return chars.slice(-numberOfChars).join("");
 };
@@ -49,16 +51,16 @@ const formatContentForTail = formatContent.bind(null, "tail");
 
 const head = function(argv, fs) {
   let { fileNames, count, option } = readUserInput(argv);
-  let { errorExist, errorMsg } = checkErrors("head", count, option);
+  let { errorExist, errorMsg } = handleErrorForHead(count, option);
   if (errorExist) return errorMsg;
   return formatContentForHead(fs, fileNames, option, count);
 };
 
 const tail = function(argv, fs) {
   let { fileNames, count, option } = readUserInput(argv);
-  let { errorExist, errorMsg } = checkErrors("tail", count, option);
+  let { errorExist, errorMsg } = handelErrorForTail(count, option);
   if (errorExist) return errorMsg;
-  count = Math.abs(+count);
+  count = Math.abs(count);
   return formatContentForTail(fs, fileNames, option, count);
 };
 

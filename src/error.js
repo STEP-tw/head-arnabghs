@@ -1,26 +1,21 @@
-const checkErrors = function(command, count, type) {
-  let errorExist = false;
-  let errorMsg = "";
-  if (command == "head") {
-    if (isNaN(count) || count < 1) {
-      errorExist = true;
-      errorMsg = "head: illegal " + type + " count -- " + count;
-    }
-  } else {
-    if (isNaN(count)) {
-      errorExist = true;
-      errorMsg = "tail: illegal offset -- " + count;
-    }
-    if (count == 0) {
-      errorExist = true;
-    }
+const handleErrorForHead = function(count, option) {
+  if (isNaN(count) || count < 1) {
+    return {
+      errorExist: true,
+      errorMsg: "head: illegal " + option + " count -- " + count
+    };
   }
-  return {
-    errorExist: errorExist,
-    errorMsg: errorMsg
-  };
+  return { errorExist: false };
+};
+
+const handelErrorForTail = function(count) {
+  if (isNaN(count)) {
+    return { errorExist: true, errorMsg: "tail: illegal offset -- " + count };
+  }
+  return { errorExist: false };
 };
 
 module.exports = {
-  checkErrors
+  handleErrorForHead,
+  handelErrorForTail
 };
