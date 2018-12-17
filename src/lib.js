@@ -28,17 +28,19 @@ const getLastNChars = function(content, numberOfChars) {
   return chars.slice(-numberOfChars).join("");
 };
 
+const utilities = {
+  head: { line: getFirstNLines, byte: getFirstNChars },
+  tail: { line: getLastNLines, byte: getLastNChars }
+};
+
 const formatContent = function(command, fs, fileNames, option, count) {
-  let getContent = function(path) {
+  const getContent = function(path) {
     if (!fs.existsSync(path))
       return command + ": " + path + ": No such file or directory";
     let content = fs.readFileSync(path, "utf-8");
-    let getChar = command == "tail" ? getLastNChars : getFirstNChars;
-    let getLine = command == "tail" ? getLastNLines : getFirstNLines;
-    let get = option == "byte" ? getChar : getLine;
-    return get(content, count);
+    return utilities[command][option](content, count);
   };
-  let getContentWithTitle = function(path) {
+  const getContentWithTitle = function(path) {
     if (!fs.existsSync(path)) return getContent(path);
     return ["==> " + path + " <==", getContent(path)].join("\n");
   };
