@@ -12,11 +12,11 @@
 
 - [x] b. head(): line 41 not necessary.
 
-- [] c. tail(): duplicate code like head.
+- [x] c. tail(): duplicate code like head.
 
 - [x] d. functions used in other function should defined before. eg.getFirstNLines etc.
 
-- [] e. duplication in getFirstNLines, getFirstNBytes, getLastNChars, getLastNLines.
+- [x] e. duplication in getFirstNLines, getFirstNBytes, getLastNChars, getLastNLines.
 
 3.  parse.js ->
 

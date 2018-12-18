@@ -1,9 +1,7 @@
 const assert = require("assert");
 const {
-  getFirstNLines,
-  getFirstNChars,
-  getLastNLines,
-  getLastNChars,
+  getFirstNItems,
+  getLastNItems,
   getContent,
   getContentWithTitle,
   formatContent,
@@ -235,35 +233,37 @@ describe("head", () => {
   });
 });
 
-describe("getFirstNLines", () => {
-  it("should return the given number of lines from starting of file", () => {
-    const fifteenLines = generateLines(15);
-    const expectedOutput = generateLines(10);
-    assert.deepEqual(getFirstNLines(fifteenLines, 10), expectedOutput);
+describe("getFirstNItems", () => {
+  describe("For line option or '\\n' as delimeter", () => {
+    it("should return the given number of lines from starting of file", () => {
+      const fifteenLines = generateLines(15);
+      const expectedOutput = generateLines(10);
+      assert.deepEqual(getFirstNItems("\n", fifteenLines, 10), expectedOutput);
+    });
+  });
+  describe("For byte option or '' as delimeter", () => {
+    it("should return the given number of chars from starting of file", () => {
+      const fifteenLines = generateLines(15);
+      const expectedOutput = generateLines(5) + "\n";
+      assert.deepEqual(getFirstNItems("", fifteenLines, 10), expectedOutput);
+    });
   });
 });
 
-describe("getFirstNChars", () => {
-  it("should return the given number of chars from starting of file", () => {
-    const fifteenLines = generateLines(15);
-    const expectedOutput = generateLines(5) + "\n";
-    assert.deepEqual(getFirstNChars(fifteenLines, 10), expectedOutput);
+describe("getLastNItems", () => {
+  describe("For line option or '\\n' as delimeter", () => {
+    it("should return the given number of lines from ending of file in correct order", () => {
+      const fifteenLines = generateLines(15);
+      const expectedOutput = generateLinesfromEnd(15, 10);
+      assert.deepEqual(getLastNItems("\n", fifteenLines, 10), expectedOutput);
+    });
   });
-});
-
-describe("getLastNLines", () => {
-  it("should return the given number of lines from ending of file in correct order", () => {
-    const fifteenLines = generateLines(15);
-    const expectedOutput = generateLinesfromEnd(15, 10);
-    assert.deepEqual(getLastNLines(fifteenLines, 10), expectedOutput);
-  });
-});
-
-describe("getLastNChars", () => {
-  it("should return the given number of chars from ending of file", () => {
-    const fifteenLines = generateLines(10);
-    const expectedOutput = generateLinesfromEnd(10, 5);
-    assert.deepEqual(getLastNChars(fifteenLines, 10), expectedOutput);
+  describe("For byte option or '' as delimeter", () => {
+    it("should return the given number of chars from ending of file", () => {
+      const fifteenLines = generateLines(10);
+      const expectedOutput = generateLinesfromEnd(10, 5);
+      assert.deepEqual(getLastNItems("", fifteenLines, 10), expectedOutput);
+    });
   });
 });
 

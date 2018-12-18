@@ -2,35 +2,28 @@ const { readUserInput } = require("./parse.js");
 
 const { handleErrorForHead, handelErrorForTail } = require("./error.js");
 
-const getFirstNLines = function(content, numberOfLines) {
+const getFirstNItems = function(delimeter, content, numberOfChars) {
   return content
-    .split("\n")
-    .slice(0, numberOfLines)
-    .join("\n");
-};
-
-const getFirstNChars = function(content, numberOfChars) {
-  return content
-    .split("")
+    .split(delimeter)
     .slice(0, numberOfChars)
-    .join("");
+    .join(delimeter);
 };
 
-const getLastNLines = function(content, numberOfLines) {
+const getLastNItems = function(delimeter, content, numberOfLines) {
   if (numberOfLines == 0) return "";
-  let lines = content.trim().split("\n");
-  return lines.slice(-numberOfLines).join("\n");
-};
-
-const getLastNChars = function(content, numberOfChars) {
-  if (numberOfChars == 0) return "";
-  let chars = content.split("");
-  return chars.slice(-numberOfChars).join("");
+  let lines = content.trim().split(delimeter);
+  return lines.slice(-numberOfLines).join(delimeter);
 };
 
 const utilities = {
-  head: { line: getFirstNLines, byte: getFirstNChars },
-  tail: { line: getLastNLines, byte: getLastNChars }
+  head: {
+    line: getFirstNItems.bind(null, "\n"),
+    byte: getFirstNItems.bind(null, "")
+  },
+  tail: {
+    line: getLastNItems.bind(null, "\n"),
+    byte: getLastNItems.bind(null, "")
+  }
 };
 
 const getContent = function(command, path, userInputs, fs) {
@@ -79,10 +72,8 @@ const tail = function(argv, fs) {
 };
 
 module.exports = {
-  getFirstNLines,
-  getFirstNChars,
-  getLastNLines,
-  getLastNChars,
+  getFirstNItems,
+  getLastNItems,
   getContent,
   getContentWithTitle,
   formatContent,
