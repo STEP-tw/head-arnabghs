@@ -22,7 +22,7 @@
 
 - [x] a. rename type with option.
 
-- [] b. smaller functions can be extracted to make it more readable.
+- [x] b. smaller functions can be extracted to make it more readable.
 
 4.  test ->
 

@@ -13,6 +13,7 @@ const handleOnlyNumberCase = function(argv, userInput) {
   userInput.fileNames = argv.slice(3);
   return userInput;
 };
+
 const isOnlyNumber = function(argv) {
   return !isNaN(argv[2].charAt(1));
 };
@@ -24,20 +25,27 @@ const isOptionByte = function(argv) {
 const isOptionLine = function(argv) {
   return argv[2].startsWith("-n");
 };
+const isOptionProvided = function(argv) {
+  return isOptionByte(argv) || isOptionLine(argv);
+};
 
 const readUserInput = function(argv) {
+  const validOptionsList = { c: "byte", n: "line" };
   let userInput = { fileNames: argv.slice(2), count: 10, option: "line" };
   if (isOnlyNumber(argv)) return handleOnlyNumberCase(argv, userInput);
-  if (isOptionByte(argv)) {
+  if (isOptionProvided(argv)) {
     userInput = getCountAndFilenames(argv, userInput);
-    userInput.option = "byte";
-  }
-  if (isOptionLine(argv)) {
-    userInput = getCountAndFilenames(argv, userInput);
+    userInput.option = validOptionsList[argv[2][1]];
   }
   return userInput;
 };
 
 module.exports = {
+  getCountAndFilenames,
+  handleOnlyNumberCase,
+  isOnlyNumber,
+  isOptionByte,
+  isOptionLine,
+  isOptionProvided,
   readUserInput
 };
