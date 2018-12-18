@@ -61,20 +61,21 @@ const formatContent = function(command, fs, userInputs) {
 const formatContentForHead = formatContent.bind(null, "head");
 const formatContentForTail = formatContent.bind(null, "tail");
 
-const head = function(argv, fs) {
+const headAndTail = function(command, argv, fs) {
+  const formatter = { head: formatContentForHead, tail: formatContentForTail };
+  const errorHandler = { head: handleErrorForHead, tail: handelErrorForTail };
   let userInputs = readUserInput(argv);
   let { count, option } = userInputs;
-  let { errorExist, errorMsg } = handleErrorForHead(count, option);
+  let { errorExist, errorMsg } = errorHandler[command](count, option);
   if (errorExist) return errorMsg;
-  return formatContentForHead(fs, userInputs);
+  return formatter[command](fs, userInputs);
 };
 
+const head = function(argv, fs) {
+  return headAndTail("head", argv, fs);
+};
 const tail = function(argv, fs) {
-  let userInputs = readUserInput(argv);
-  let { count, option } = userInputs;
-  let { errorExist, errorMsg } = handelErrorForTail(count, option);
-  if (errorExist) return errorMsg;
-  return formatContentForTail(fs, userInputs);
+  return headAndTail("tail", argv, fs);
 };
 
 module.exports = {
