@@ -78,10 +78,13 @@ const tail = function(argv, fs) {
 };
 
 module.exports = {
-  head,
   getFirstNLines,
   getFirstNChars,
-  tail,
   getLastNLines,
-  getLastNChars
+  getLastNChars,
+  getContent,
+  getContentWithTitle,
+  formatContent,
+  head,
+  tail
 };

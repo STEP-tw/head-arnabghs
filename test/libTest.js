@@ -1,11 +1,14 @@
 const assert = require("assert");
 const {
-  head,
   getFirstNLines,
   getFirstNChars,
-  tail,
   getLastNLines,
-  getLastNChars
+  getLastNChars,
+  getContent,
+  getContentWithTitle,
+  formatContent,
+  head,
+  tail
 } = require("../src/lib.js");
 
 const generateLines = n => {
@@ -467,6 +470,170 @@ describe("tail", () => {
       const argv = "node tail.js -c -12 fifteenLines.txt".split(" ");
       let expectedOutput = "\n" + generateLinesfromEnd(15, 4);
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
+    });
+  });
+});
+
+describe("getContent", () => {
+  describe("for head command and line option and count 10", () => {
+    it("should return the whole file if the file has less than 10 lines", () => {
+      let path = "fiveLines.txt";
+      let command = "head";
+      let userInputs = { option: "line", count: 10 };
+      let actualOutput = getContent(command, path, userInputs, dummyfs);
+      let expectedOutput = generateLines(5);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for head command and byte option and count 11", () => {
+    it("should return the first 11 chars", () => {
+      let path = "fifteenLines.txt";
+      let command = "head";
+      let userInputs = { option: "byte", count: 11 };
+      let actualOutput = getContent(command, path, userInputs, dummyfs);
+      let expectedOutput = generateLines(6);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for tail command and line option and count 10", () => {
+    it("should return the last 10 lines of the file", () => {
+      let path = "fifteenLines.txt";
+      let command = "tail";
+      let userInputs = { option: "line", count: 10 };
+      let actualOutput = getContent(command, path, userInputs, dummyfs);
+      let expectedOutput = generateLinesfromEnd(15, 10);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for tail command and byte option and count 5", () => {
+    it("should return the last 5 chars", () => {
+      let path = "fiveLines.txt";
+      let command = "tail";
+      let userInputs = { option: "byte", count: 5 };
+      let actualOutput = getContent(command, path, userInputs, dummyfs);
+      let expectedOutput = generateLinesfromEnd(5, 3);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for missing file with head command and line option", () => {
+    it("should throw an error", () => {
+      let path = "missingFile.txt";
+      let command = "head";
+      let userInputs = { option: "line", count: 10 };
+      let actualOutput = getContent(command, path, userInputs, dummyfs);
+      let expectedOutput =
+        command + ": " + path + ": No such file or directory";
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+});
+
+describe("getContentWithTitle", () => {
+  describe("for head command and line option with count 10", () => {
+    it("should append the path name before the content", () => {
+      let command = "head";
+      let userInputs = { option: "line", count: 10 };
+      let path = "fiveLines.txt";
+      let actualOutput = getContentWithTitle(
+        command,
+        userInputs,
+        dummyfs,
+        path
+      );
+      let expectedOutput =
+        "==> " + "fiveLines.txt" + " <==\n" + generateLines(5);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for tail command and byte option and count 7", () => {
+    it("should append the path name before the content", () => {
+      let command = "tail";
+      let userInputs = { option: "byte", count: 7 };
+      let path = "fiveLines.txt";
+      let actualOutput = getContentWithTitle(
+        command,
+        userInputs,
+        dummyfs,
+        path
+      );
+      let expectedOutput =
+        "==> " + "fiveLines.txt" + " <==\n" + generateLinesfromEnd(5, 4);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for missing file with head command and line option", () => {
+    it("should throw an error", () => {
+      let path = "missingFile.txt";
+      let command = "head";
+      let userInputs = { option: "line", count: 10 };
+      let actualOutput = getContentWithTitle(
+        command,
+        userInputs,
+        dummyfs,
+        path
+      );
+      let expectedOutput =
+        command + ": " + path + ": No such file or directory";
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+});
+
+describe("formatContent", () => {
+  describe("for single file with head and option line", () => {
+    it("should return the given number of lines from beginning of file", () => {
+      let command = "head";
+      let userInputs = {
+        fileNames: ["fiveLines.txt"],
+        option: "line",
+        count: 10
+      };
+      let actualOutput = formatContent(command, dummyfs, userInputs);
+      let expectedOutput = generateLines(5);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for multiple files with head and option byte", () => {
+    it("should return the given number of chars from beginning of file", () => {
+      let command = "head";
+      let userInputs = {
+        fileNames: ["fiveLines.txt", "fifteenLines.txt"],
+        option: "byte",
+        count: 5
+      };
+      let actualOutput = formatContent(command, dummyfs, userInputs);
+      let expectedOutput = "==> fiveLines.txt <==\n" + generateLines(3);
+      expectedOutput += "\n==> fifteenLines.txt <==\n" + generateLines(3);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for single file with tail and option line", () => {
+    it("should return the given number of lines from end of file", () => {
+      let command = "tail";
+      let userInputs = {
+        fileNames: ["fifteenLines.txt"],
+        option: "line",
+        count: 10
+      };
+      let actualOutput = formatContent(command, dummyfs, userInputs);
+      let expectedOutput = generateLinesfromEnd(15, 10);
+      assert.deepEqual(actualOutput, expectedOutput);
+    });
+  });
+  describe("for multiple files with tail and option byte", () => {
+    it("should return the given number of chars from end of file", () => {
+      let command = "tail";
+      let userInputs = {
+        fileNames: ["fiveLines.txt", "fifteenLines.txt"],
+        option: "byte",
+        count: 5
+      };
+      let actualOutput = formatContent(command, dummyfs, userInputs);
+      let expectedOutput =
+        "==> fiveLines.txt <==\n" + generateLinesfromEnd(5, 3);
+      expectedOutput +=
+        "\n==> fifteenLines.txt <==\n" + generateLinesfromEnd(15, 2);
+      assert.deepEqual(actualOutput, expectedOutput);
     });
   });
 });
