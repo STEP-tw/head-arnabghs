@@ -8,19 +8,24 @@ const getCountAndFilenames = function(argv, userInput) {
   return userInput;
 };
 
+const handleOnlyNumberCase = function(argv, userInput) {
+  userInput.count = argv[2].slice(1);
+  userInput.fileNames = argv.slice(3);
+  return userInput;
+};
+const isOnlyNumber = function(argv) {
+  return !isNaN(argv[2].charAt(1));
+};
+
 const readUserInput = function(argv) {
   let userInput = { fileNames: argv.slice(2), count: 10, option: "line" };
+  if (isOnlyNumber(argv)) return handleOnlyNumberCase(argv, userInput);
   if (argv[2].startsWith("-c")) {
     userInput = getCountAndFilenames(argv, userInput);
     userInput.option = "byte";
-    return userInput;
   }
-  if (argv[2].startsWith("-")) {
+  if (argv[2].startsWith("-n")) {
     userInput = getCountAndFilenames(argv, userInput);
-    if (!isNaN(argv[2].charAt(1))) {
-      userInput.count = argv[2].slice(1);
-      userInput.fileNames = argv.slice(3);
-    }
   }
   return userInput;
 };
