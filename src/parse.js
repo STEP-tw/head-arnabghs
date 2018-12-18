@@ -17,14 +17,22 @@ const isOnlyNumber = function(argv) {
   return !isNaN(argv[2].charAt(1));
 };
 
+const isOptionByte = function(argv) {
+  return argv[2].startsWith("-c");
+};
+
+const isOptionLine = function(argv) {
+  return argv[2].startsWith("-n");
+};
+
 const readUserInput = function(argv) {
   let userInput = { fileNames: argv.slice(2), count: 10, option: "line" };
   if (isOnlyNumber(argv)) return handleOnlyNumberCase(argv, userInput);
-  if (argv[2].startsWith("-c")) {
+  if (isOptionByte(argv)) {
     userInput = getCountAndFilenames(argv, userInput);
     userInput.option = "byte";
   }
-  if (argv[2].startsWith("-n")) {
+  if (isOptionLine(argv)) {
     userInput = getCountAndFilenames(argv, userInput);
   }
   return userInput;
