@@ -139,7 +139,6 @@ describe("readUserInput", () => {
     it("should have count=10 & fileNames=[one.txt] & option: line", () => {
       let user = readUserInput("node head one.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 10,
         fileNames: ["one.txt"],
         option: "line"
@@ -150,7 +149,6 @@ describe("readUserInput", () => {
     it("should have count= 10 & fileNames=[one.txt, two.txt] & option: line", () => {
       let user = readUserInput("node head one.txt two.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 10,
         fileNames: ["one.txt", "two.txt"],
         option: "line"
@@ -161,7 +159,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt] & option: line", () => {
       let user = readUserInput("node head -n5 one.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt"],
         option: "line"
@@ -172,7 +169,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: line", () => {
       let user = readUserInput("node head -n5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt", "two.txt"],
         option: "line"
@@ -183,7 +179,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt] & option: line", () => {
       let user = readUserInput("node head -n 5 one.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt"],
         option: "line"
@@ -194,7 +189,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: line", () => {
       let user = readUserInput("node head -n 5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt", "two.txt"],
         option: "line"
@@ -205,7 +199,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt] & option: line", () => {
       let user = readUserInput("node head -5 one.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt"],
         option: "line"
@@ -216,7 +209,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: line", () => {
       let user = readUserInput("node head -5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt", "two.txt"],
         option: "line"
@@ -227,7 +219,6 @@ describe("readUserInput", () => {
     it("should have charcterCount= 10 & fileNames=[one.txt] & option: byte", () => {
       let user = readUserInput("node head -c10 one.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         fileNames: ["one.txt"],
         count: 10,
         option: "byte"
@@ -238,7 +229,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: byte", () => {
       let user = readUserInput("node head -c5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt", "two.txt"],
         option: "byte"
@@ -249,7 +239,6 @@ describe("readUserInput", () => {
     it("should have charcterCount= 10 & fileNames=[one.txt] & option: byte", () => {
       let user = readUserInput("node head -c 10 one.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         fileNames: ["one.txt"],
         count: 10,
         option: "byte"
@@ -260,7 +249,6 @@ describe("readUserInput", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: byte", () => {
       let user = readUserInput("node head -c 5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
-        command: "head",
         count: 5,
         fileNames: ["one.txt", "two.txt"],
         option: "byte"
