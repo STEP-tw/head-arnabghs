@@ -31,7 +31,12 @@ const isOptionProvided = function(argv) {
 
 const readUserInput = function(argv) {
   const validOptionsList = { c: "byte", n: "line" };
-  let userInput = { fileNames: argv.slice(2), count: 10, option: "line" };
+  let userInput = {
+    command: argv[1].slice(0, 4),
+    fileNames: argv.slice(2),
+    count: 10,
+    option: "line"
+  };
   if (isOnlyNumber(argv)) return handleOnlyNumberCase(argv, userInput);
   if (isOptionProvided(argv)) {
     userInput = getCountAndFilenames(argv, userInput);
