@@ -26,6 +26,6 @@
 
 4.  test ->
 
-- [] a. it messages can be improved.
+- [x] a. it messages can be improved.
 
-- [] b. expected output should be hardcoded within it block.
+- [x] b. expected output should be hardcoded within it block.
