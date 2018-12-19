@@ -64,19 +64,11 @@ const headAndTail = function(argv, fs) {
   return formatter[command](fs, userInputs);
 };
 
-const head = function(argv, fs) {
-  return headAndTail(argv, fs);
-};
-const tail = function(argv, fs) {
-  return headAndTail(argv, fs);
-};
-
 module.exports = {
   getFirstNItems,
   getLastNItems,
   getContent,
   getContentWithTitle,
   formatContent,
-  head,
-  tail
+  headAndTail
 };
