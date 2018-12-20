@@ -17,5 +17,6 @@
 const fs = require('fs');
 
 const { tail } = require('./src/lib.js');
-process.stdout.write(tail(process.argv,fs));
+let userArgs = process.argv.slice(2);
+process.stdout.write(tail(userArgs,fs));
 

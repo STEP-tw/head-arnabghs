@@ -14,7 +14,8 @@
   node ./head.js -c 5 file1 file2
 */
 
-const fs = require('fs');
+const fs = require("fs");
 
-const { head } = require('./src/lib.js');
-process.stdout.write(head(process.argv,fs));
+const { head } = require("./src/lib.js");
+let userArgs = process.argv.slice(2);
+process.stdout.write(head(userArgs, fs));

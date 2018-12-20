@@ -45,44 +45,44 @@ const dummyfs = {
 };
 
 describe("head", () => {
-  describe("node head.js fifteenLines.txt", () => {
+  describe("fifteenLines.txt", () => {
     it("should give first 10 lines by default if no count is given", () => {
-      const argv = "node head.js fifteenLines.txt".split(" ");
+      const argv = "fifteenLines.txt".split(" ");
       const tenLines = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
       assert.deepEqual(head(argv, dummyfs), tenLines);
     });
   });
-  describe("node head.js tenLines.txt", () => {
+  describe("tenLines.txt", () => {
     it("should give first 10 lines by default if no count is given", () => {
-      const argv = "node head.js tenLines.txt".split(" ");
+      const argv = "tenLines.txt".split(" ");
       const tenLines = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
       assert.deepEqual(head(argv, dummyfs), tenLines);
     });
   });
-  describe("node head.js fiveLines.txt", () => {
+  describe("fiveLines.txt", () => {
     it("should give all the lines if count is not given and file is less than 10 lines", () => {
-      const argv = "node head.js fiveLines.txt".split(" ");
+      const argv = "fiveLines.txt".split(" ");
       const fiveLines = "1\n2\n3\n4\n5";
       assert.deepEqual(head(argv, dummyfs), fiveLines);
     });
   });
-  describe("node head.js empty.txt", () => {
+  describe("empty.txt", () => {
     it("should give no lines if file is empty", () => {
-      const argv = "node head.js empty.txt".split(" ");
+      const argv = "empty.txt".split(" ");
       const empty = "";
       assert.deepEqual(head(argv, dummyfs), empty);
     });
   });
-  describe("node head.js bad.txt", () => {
+  describe("bad.txt", () => {
     it("should give error message for missing file", () => {
-      const argv = "node head.js bad.txt".split(" ");
+      const argv = "bad.txt".split(" ");
       const bad = "head: bad.txt: No such file or directory";
       assert.deepEqual(head(argv, dummyfs), bad);
     });
   });
-  describe("node head.js fiveLines.txt fifteenLines.txt", () => {
+  describe("fiveLines.txt fifteenLines.txt", () => {
     it("should give heading with content if there is more than one file", () => {
-      const argv = "node head.js fiveLines.txt fifteenLines.txt".split(" ");
+      const argv = "fiveLines.txt fifteenLines.txt".split(" ");
 
       let fiveAndFifteenLines = "==> fiveLines.txt <==\n";
       fiveAndFifteenLines += "1\n2\n3\n4\n5\n";
@@ -94,14 +94,14 @@ describe("head", () => {
   });
   describe("node ./head.js -n5 tenLines.txt", () => {
     it("should return first 5 lines", () => {
-      const argv = "node head.js -n5 tenLines.txt".split(" ");
+      const argv = "-n5 tenLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
   describe("node ./head.js -n5 fiveLines.txt tenLines.txt", () => {
     it("should return first 5 lines of both files with heading", () => {
-      const argv = "node head.js -n5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-n5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n" + "1\n2\n3\n4\n5";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
@@ -109,14 +109,14 @@ describe("head", () => {
   });
   describe("node ./head.js -n 5 fiveLines.txt", () => {
     it("should return first 5 lines", () => {
-      const argv = "node head.js -n 5 fiveLines.txt".split(" ");
+      const argv = "-n 5 fiveLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
   describe("node ./head.js -n 5 fiveLines.txt tenLines.txt", () => {
     it("should return first 5 lines of both files with heading", () => {
-      const argv = "node head.js -n 5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-n 5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n" + "1\n2\n3\n4\n5";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
@@ -124,84 +124,82 @@ describe("head", () => {
   });
   describe("node ./head.js -5 fiveLines.txt", () => {
     it("should return first 5 lines", () => {
-      const argv = "node head.js -5 fiveLines.txt".split(" ");
+      const argv = "-5 fiveLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -5 fiveLines.txt tenLines.txt", () => {
+  describe("-5 fiveLines.txt tenLines.txt", () => {
     it("should return first 5 lines of both files with heading", () => {
-      const argv = "node head.js -5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n" + "1\n2\n3\n4\n5";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -c10 fifteenLines.txt", () => {
+  describe("-c10 fifteenLines.txt", () => {
     it("should return first 10 chars", () => {
-      const argv = "node head.js -c10 fifteenLines.txt".split(" ");
+      const argv = "-c10 fifteenLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5\n";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -c5 fiveLines.txt tenLines.txt", () => {
+  describe("-c5 fiveLines.txt tenLines.txt", () => {
     it("should return first 5 chars of both files with heading", () => {
-      const argv = "node head.js -c5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-c5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n";
       expectedOutput += "==> tenLines.txt <==\n" + "1\n2\n3";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -c 10 fifteenLines.txt", () => {
+  describe("-c 10 fifteenLines.txt", () => {
     it("should return first 10 chars", () => {
-      const argv = "node head.js -c 10 fifteenLines.txt".split(" ");
+      const argv = "-c 10 fifteenLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5\n";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -c 5 fiveLines.txt tenLines.txt", () => {
+  describe("-c 5 fiveLines.txt tenLines.txt", () => {
     it("should return first 5 chars of both files with heading", () => {
-      const argv = "node head.js -c 5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-c 5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n";
       expectedOutput += "==> tenLines.txt <==\n" + "1\n2\n3";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -0 fiveLines.txt", () => {
+  describe("-0 fiveLines.txt", () => {
     it("should return error messege for count 0", () => {
-      const argv = "node head.js -0 fiveLines.txt".split(" ");
+      const argv = "-0 fiveLines.txt".split(" ");
       let expectedOutput = "head: illegal line count -- 0";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -n 0 fiveLines.txt", () => {
+  describe("-n 0 fiveLines.txt", () => {
     it("should return error messege for count 0", () => {
-      const argv = "node head.js -n 0 fiveLines.txt".split(" ");
+      const argv = "-n 0 fiveLines.txt".split(" ");
       let expectedOutput = "head: illegal line count -- 0";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -c 0 fiveLines.txt", () => {
+  describe("-c 0 fiveLines.txt", () => {
     it("should return error messege for count 0", () => {
-      const argv = "node head.js -c 0 fiveLines.txt".split(" ");
+      const argv = "-c 0 fiveLines.txt".split(" ");
       let expectedOutput = "head: illegal byte count -- 0";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js fiveLines.txt badfile.txt", () => {
+  describe("fiveLines.txt badfile.txt", () => {
     it("should return the present file with heading and error for missing file at the end", () => {
-      const argv = "node head.js fiveLines.txt badfile.txt".split(" ");
+      const argv = "fiveLines.txt badfile.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n";
       expectedOutput += "1\n2\n3\n4\n5" + "\n";
       expectedOutput += "head: badfile.txt: No such file or directory";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js fiveLines.txt badfile.txt tenLines.txt", () => {
+  describe("fiveLines.txt badfile.txt tenLines.txt", () => {
     it("should return the present files with heading and error for missing file in respective places", () => {
-      const argv = "node head.js fiveLines.txt badfile.txt tenLines.txt".split(
-        " "
-      );
+      const argv = "fiveLines.txt badfile.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n";
       expectedOutput += "1\n2\n3\n4\n5\n";
       expectedOutput += "head: badfile.txt: No such file or directory\n";
@@ -211,23 +209,23 @@ describe("head", () => {
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -n r fiveLines.txt", () => {
+  describe("-n r fiveLines.txt", () => {
     it("should return error messege if count given is an alphabet", () => {
-      const argv = "node head.js -n r fiveLines.txt".split(" ");
+      const argv = "-n r fiveLines.txt".split(" ");
       let expectedOutput = "head: illegal line count -- r";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -n -5 fiveLines.txt", () => {
+  describe("-n -5 fiveLines.txt", () => {
     it("should return error messege if count given is a -ve number", () => {
-      const argv = "node head.js -n -5 fiveLines.txt".split(" ");
+      const argv = "-n -5 fiveLines.txt".split(" ");
       let expectedOutput = "head: illegal line count -- -5";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node head.js -n 5x fiveLines.txt", () => {
+  describe("-n 5x fiveLines.txt", () => {
     it("should return error messege if given count is not a proper number", () => {
-      const argv = "node head.js -n 5x fiveLines.txt".split(" ");
+      const argv = "-n 5x fiveLines.txt".split(" ");
       let expectedOutput = "head: illegal line count -- 5x";
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
@@ -269,46 +267,44 @@ describe("getLastNItems", () => {
 });
 
 describe("tail", () => {
-  describe("node tail.js fifteenLines.txt", () => {
+  describe("fifteenLines.txt", () => {
     it("should give last 10 lines as default if no count or option is given", () => {
-      const argv = "node tail.js fifteenLines.txt".split(" ");
+      const argv = "fifteenLines.txt".split(" ");
       const lastTenLines = "6\n7\n8\n9\n10\n11\n12\n13\n14\n15";
       assert.deepEqual(tail(argv, dummyfs), lastTenLines);
     });
   });
-  describe("node tail.js fifteenLinesWithTrailingNewLineChar.txt", () => {
+  describe("fifteenLinesWithTrailingNewLineChar.txt", () => {
     it("should give last 10 lines excluding newLineChar", () => {
-      const argv = "node tail.js fifteenLinesWithTrailingNewLineChar.txt".split(
-        " "
-      );
+      const argv = "fifteenLinesWithTrailingNewLineChar.txt".split(" ");
       const lastTenLines = "6\n7\n8\n9\n10\n11\n12\n13\n14\n15";
       assert.deepEqual(tail(argv, dummyfs), lastTenLines);
     });
   });
-  describe("node tail.js bad.txt", () => {
+  describe("bad.txt", () => {
     it("should give error message for missing file", () => {
-      const argv = "node tail.js bad.txt".split(" ");
+      const argv = "bad.txt".split(" ");
       const bad = "tail: bad.txt: No such file or directory";
       assert.deepEqual(tail(argv, dummyfs), bad);
     });
   });
-  describe("node tail.js fiveLines.txt", () => {
+  describe("fiveLines.txt", () => {
     it("should give all the lines if the file has less than ten lines", () => {
-      const argv = "node tail.js fiveLines.txt".split(" ");
+      const argv = "fiveLines.txt".split(" ");
       const fiveLines = "1\n2\n3\n4\n5";
       assert.deepEqual(tail(argv, dummyfs), fiveLines);
     });
   });
-  describe("node tail.js empty.txt", () => {
+  describe("empty.txt", () => {
     it("should give empty string for empty file", () => {
-      const argv = "node tail.js empty.txt".split(" ");
+      const argv = "empty.txt".split(" ");
       const empty = "";
       assert.deepEqual(tail(argv, dummyfs), empty);
     });
   });
-  describe("node tail.js fiveLines.txt fifteenLines.txt", () => {
+  describe("fiveLines.txt fifteenLines.txt", () => {
     it("should give heading with content when there is more than one file", () => {
-      const argv = "node tail.js fiveLines.txt fifteenLines.txt".split(" ");
+      const argv = "fiveLines.txt fifteenLines.txt".split(" ");
 
       let fiveAndFifteenLines = "==> fiveLines.txt <==\n";
       fiveAndFifteenLines += "1\n2\n3\n4\n5\n";
@@ -318,9 +314,9 @@ describe("tail", () => {
       assert.deepEqual(tail(argv, dummyfs), fiveAndFifteenLines);
     });
   });
-  describe("node tail.js fiveLines.txt missingFile.txt", () => {
+  describe("fiveLines.txt missingFile.txt", () => {
     it("should give all 5 lines and error message for missing file", () => {
-      const argv = "node tail.js fiveLines.txt missingFile.txt".split(" ");
+      const argv = "fiveLines.txt missingFile.txt".split(" ");
       let fiveLinesAndMissingFile = "==> fiveLines.txt <==\n";
       fiveLinesAndMissingFile += "1\n2\n3\n4\n5\n";
       fiveLinesAndMissingFile +=
@@ -328,16 +324,16 @@ describe("tail", () => {
       assert.deepEqual(tail(argv, dummyfs), fiveLinesAndMissingFile);
     });
   });
-  describe("node tail.js -n5 tenLines.txt", () => {
+  describe("-n5 tenLines.txt", () => {
     it("should return given number of lines from end of file", () => {
-      const argv = "node tail.js -n5 tenLines.txt".split(" ");
+      const argv = "-n5 tenLines.txt".split(" ");
       let expectedOutput = "6\n7\n8\n9\n10";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -n5 fiveLines.txt tenLines.txt", () => {
+  describe("-n5 fiveLines.txt tenLines.txt", () => {
     it("should return first 5 lines of both files with heading", () => {
-      const argv = "node tail.js -n5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-n5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n" + "6\n7\n8\n9\n10";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
@@ -345,14 +341,14 @@ describe("tail", () => {
   });
   describe("node ./tail.js -n 5 fiveLines.txt", () => {
     it("should return given number of lines from end of file", () => {
-      const argv = "node tail.js -n 5 fiveLines.txt".split(" ");
+      const argv = "-n 5 fiveLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
   describe("node ./tail.js -n 5 fiveLines.txt tenLines.txt", () => {
     it("should return last 5 lines of both files with heading", () => {
-      const argv = "node tail.js -n5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-n5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n" + "6\n7\n8\n9\n10";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
@@ -360,108 +356,108 @@ describe("tail", () => {
   });
   describe("node ./tail.js -5 fiveLines.txt", () => {
     it("should return given number of lines from end of file", () => {
-      const argv = "node tail.js -5 fiveLines.txt".split(" ");
+      const argv = "-5 fiveLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -5 fiveLines.txt tenLines.txt", () => {
+  describe("-5 fiveLines.txt tenLines.txt", () => {
     it("should return last 5 lines of  both files with heading", () => {
-      const argv = "node tail.js -5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "1\n2\n3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n" + "6\n7\n8\n9\n10";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c12 fifteenLines.txt", () => {
+  describe("-c12 fifteenLines.txt", () => {
     it("should return the given number of characters from end of file", () => {
-      const argv = "node tail.js -c12 fifteenLines.txt".split(" ");
+      const argv = "-c12 fifteenLines.txt".split(" ");
       let expectedOutput = "\n12\n13\n14\n15";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c5 fiveLines.txt tenLines.txt", () => {
+  describe("-c5 fiveLines.txt tenLines.txt", () => {
     it("should return heading with content when number of files is more than one", () => {
-      const argv = "node tail.js -c5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-c5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n\n" + "9\n10";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c 12 fifteenLines.txt", () => {
+  describe("-c 12 fifteenLines.txt", () => {
     it("should return given number of characters from end of file", () => {
-      const argv = "node tail.js -c 12 fifteenLines.txt".split(" ");
+      const argv = "-c 12 fifteenLines.txt".split(" ");
       let expectedOutput = "\n" + "12\n13\n14\n15";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c 5 fiveLines.txt tenLines.txt", () => {
+  describe("-c 5 fiveLines.txt tenLines.txt", () => {
     it("should return heading with content when number of files is more than one", () => {
-      const argv = "node tail.js -c 5 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-c 5 fiveLines.txt tenLines.txt".split(" ");
       let expectedOutput = "==> fiveLines.txt <==\n" + "3\n4\n5\n";
       expectedOutput += "==> tenLines.txt <==\n\n" + "9\n10";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -n 0 fiveLines.txt", () => {
+  describe("-n 0 fiveLines.txt", () => {
     it("should return empty string for count 0", () => {
-      const argv = "node tail.js -n 0 fiveLines.txt".split(" ");
+      const argv = "-n 0 fiveLines.txt".split(" ");
       assert.deepEqual(tail(argv, dummyfs), "");
     });
   });
-  describe("node tail.js -c 0 fiveLines.txt", () => {
+  describe("-c 0 fiveLines.txt", () => {
     it("should return empty string for count 0", () => {
-      const argv = "node tail.js -c 0 fiveLines.txt".split(" ");
+      const argv = "-c 0 fiveLines.txt".split(" ");
       assert.deepEqual(tail(argv, dummyfs), "");
     });
   });
-  describe("node tail.js -n 0 fiveLines.txt tenLines.txt", () => {
+  describe("-n 0 fiveLines.txt tenLines.txt", () => {
     it("should return empty string with heading of the files", () => {
-      const argv = "node tail.js -n 0 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-n 0 fiveLines.txt tenLines.txt".split(" ");
       const expectedOutput =
         "==> fiveLines.txt <==\n" + "\n==> tenLines.txt <==\n";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c 0 fiveLines.txt tenLines.txt", () => {
+  describe("-c 0 fiveLines.txt tenLines.txt", () => {
     it("should return empty string with heading of the files", () => {
-      const argv = "node tail.js -c 0 fiveLines.txt tenLines.txt".split(" ");
+      const argv = "-c 0 fiveLines.txt tenLines.txt".split(" ");
       const expectedOutput =
         "==> fiveLines.txt <==\n" + "\n==> tenLines.txt <==\n";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -n r fiveLines.txt", () => {
+  describe("-n r fiveLines.txt", () => {
     it("should return error messege if given count is alphabet", () => {
-      const argv = "node tail.js -n r fiveLines.txt".split(" ");
+      const argv = "-n r fiveLines.txt".split(" ");
       let expectedOutput = "tail: illegal offset -- r";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c r fiveLines.txt", () => {
+  describe("-c r fiveLines.txt", () => {
     it("should return error messege if given count is alphabet", () => {
-      const argv = "node tail.js -c r fiveLines.txt".split(" ");
+      const argv = "-c r fiveLines.txt".split(" ");
       let expectedOutput = "tail: illegal offset -- r";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c -5x fiveLines.txt", () => {
+  describe("-c -5x fiveLines.txt", () => {
     it("should return error messege if given count is not a proper number", () => {
-      const argv = "node tail.js -c -5x fiveLines.txt".split(" ");
+      const argv = "-c -5x fiveLines.txt".split(" ");
       let expectedOutput = "tail: illegal offset -- -5x";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
   describe("node ./tail.js -n -5 fiveLines.txt", () => {
     it("should return last 5 lines even if the count is -ve number", () => {
-      const argv = "node tail.js -n -5 fiveLines.txt".split(" ");
+      const argv = "-n -5 fiveLines.txt".split(" ");
       let expectedOutput = "1\n2\n3\n4\n5";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("node tail.js -c -12 fifteenLines.txt", () => {
+  describe("-c -12 fifteenLines.txt", () => {
     it("should return last 12 chars for -ve count also", () => {
-      const argv = "node tail.js -c -12 fifteenLines.txt".split(" ");
+      const argv = "-c -12 fifteenLines.txt".split(" ");
       let expectedOutput = "\n" + "12\n13\n14\n15";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });

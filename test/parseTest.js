@@ -11,18 +11,18 @@ const {
 } = require("../src/parse.js");
 
 describe("getCountAndFilenames", () => {
-  describe("node head.js -n5 one.txt", () => {
+  describe("-n5 one.txt", () => {
     it("when option and count is given together gets count and filenames from user input array", () => {
-      let argv = "node head.js -n5 one.txt".split(" ");
+      let argv = "-n5 one.txt".split(" ");
       let userInput = { fileNames: "anything", count: "anyNumber" };
       let actualOutput = getCountAndFilenames(argv, userInput);
       let expectedOutput = { count: "5", fileNames: ["one.txt"] };
       assert.deepEqual(actualOutput, expectedOutput);
     });
   });
-  describe("node tail.js -c10 one.txt two.txt", () => {
+  describe("-c10 one.txt two.txt", () => {
     it("when option and count is given together gets count and filenames from user input array", () => {
-      let argv = "node tail.js -c10 one.txt two.txt".split(" ");
+      let argv = "-c10 one.txt two.txt".split(" ");
       let userInput = { fileNames: "anything", count: "anyNumber" };
       let actualOutput = getCountAndFilenames(argv, userInput);
       let expectedOutput = { count: "10", fileNames: ["one.txt", "two.txt"] };
@@ -32,18 +32,18 @@ describe("getCountAndFilenames", () => {
 });
 
 describe("handleOnlyNumberCase", () => {
-  describe("node head.js -5 one.txt", () => {
+  describe("-5 one.txt", () => {
     it("when only count is given gets count and filenames from user input array", () => {
-      let argv = "node head.js -5 one.txt".split(" ");
+      let argv = "-5 one.txt".split(" ");
       let userInput = { fileNames: "anything", count: "anyNumber" };
       let actualOutput = handleOnlyNumberCase(argv, userInput);
       let expectedOutput = { count: "5", fileNames: ["one.txt"] };
       assert.deepEqual(actualOutput, expectedOutput);
     });
   });
-  describe("node tail.js -5 one.txt two.txt", () => {
+  describe("-5 one.txt two.txt", () => {
     it("when only count is given gets count and filenames from user input array", () => {
-      let argv = "node tail.js -5 one.txt two.txt".split(" ");
+      let argv = "-5 one.txt two.txt".split(" ");
       let userInput = { fileNames: "anything", count: "anyNumber" };
       let actualOutput = handleOnlyNumberCase(argv, userInput);
       let expectedOutput = { count: "5", fileNames: ["one.txt", "two.txt"] };
@@ -53,23 +53,23 @@ describe("handleOnlyNumberCase", () => {
 });
 
 describe("isOnlyNumber", () => {
-  describe("node head.js -5 one.txt", () => {
+  describe("-5 one.txt", () => {
     it("returns true when only count is given", () => {
-      let argv = "node head.js -5 one.txt".split(" ");
+      let argv = "-5 one.txt".split(" ");
       let actualOutput = isOnlyNumber(argv);
       assert.deepEqual(actualOutput, true);
     });
   });
-  describe("node head.js -n5 one.txt", () => {
+  describe("-n5 one.txt", () => {
     it("returns false when option is given with count together", () => {
-      let argv = "node head.js -n5 one.txt".split(" ");
+      let argv = "-n5 one.txt".split(" ");
       let actualOutput = isOnlyNumber(argv);
       assert.deepEqual(actualOutput, false);
     });
   });
-  describe("node head.js -n 5 one.txt", () => {
+  describe("-n 5 one.txt", () => {
     it("returns false even if option is given seperately from count", () => {
-      let argv = "node head.js -n 5 one.txt".split(" ");
+      let argv = "-n 5 one.txt".split(" ");
       let actualOutput = isOnlyNumber(argv);
       assert.deepEqual(actualOutput, false);
     });
@@ -77,16 +77,16 @@ describe("isOnlyNumber", () => {
 });
 
 describe("isOptionByte", () => {
-  describe("node head.js -c 5 one.txt", () => {
+  describe("-c 5 one.txt", () => {
     it("returns true when only option '-c' is given", () => {
-      let argv = "node head.js -c 5 one.txt".split(" ");
+      let argv = "-c 5 one.txt".split(" ");
       let actualOutput = isOptionByte(argv);
       assert.deepEqual(actualOutput, true);
     });
   });
-  describe("node head.js -c5 one.txt", () => {
+  describe("-c5 one.txt", () => {
     it("returns true when option '-c' is given with count", () => {
-      let argv = "node head.js -c5 one.txt".split(" ");
+      let argv = "-c5 one.txt".split(" ");
       let actualOutput = isOptionByte(argv);
       assert.deepEqual(actualOutput, true);
     });
@@ -94,16 +94,16 @@ describe("isOptionByte", () => {
 });
 
 describe("isOptionLine", () => {
-  describe("node head.js -n 5 one.txt", () => {
+  describe("-n 5 one.txt", () => {
     it("returns true when only option '-n' is given", () => {
-      let argv = "node head.js -n 5 one.txt".split(" ");
+      let argv = "-n 5 one.txt".split(" ");
       let actualOutput = isOptionLine(argv);
       assert.deepEqual(actualOutput, true);
     });
   });
-  describe("node head.js -n5 one.txt", () => {
+  describe("-n5 one.txt", () => {
     it("returns true when option '-n' is given with count", () => {
-      let argv = "node head.js -n5 one.txt".split(" ");
+      let argv = "-n5 one.txt".split(" ");
       let actualOutput = isOptionLine(argv);
       assert.deepEqual(actualOutput, true);
     });
@@ -111,23 +111,23 @@ describe("isOptionLine", () => {
 });
 
 describe("isOptionProvided", () => {
-  describe("node head.js -n5 one,txt", () => {
+  describe("-n5 one.txt", () => {
     it("returns true if any of isOptionByte or isOptionLine is true", () => {
-      let argv = "node head.js -n5 one,txt".split(" ");
+      let argv = "-n5 one.txt".split(" ");
       let actualOutput = isOptionProvided(argv);
       assert.deepEqual(actualOutput, true);
     });
   });
-  describe("node head.js -c 5 one,txt", () => {
+  describe("-c 5 one.txt", () => {
     it("returns true if any of isOptionByte or isOptionLine is true", () => {
-      let argv = "node head.js -c 5 one,txt".split(" ");
+      let argv = "-c 5 one.txt".split(" ");
       let actualOutput = isOptionProvided(argv);
       assert.deepEqual(actualOutput, true);
     });
   });
-  describe("node head.js -5 one,txt", () => {
+  describe("-5 one.txt", () => {
     it("returns true if any of isOptionByte or isOptionLine is true", () => {
-      let argv = "node head.js -5 one,txt".split(" ");
+      let argv = "-5 one.txt".split(" ");
       let actualOutput = isOptionProvided(argv);
       assert.deepEqual(actualOutput, false);
     });
@@ -135,9 +135,9 @@ describe("isOptionProvided", () => {
 });
 
 describe("readUserInput", () => {
-  describe("node head one.txt", () => {
+  describe("one.txt", () => {
     it("should have count=10 & fileNames=[one.txt] & option: line", () => {
-      let user = readUserInput("node head one.txt".split(" "));
+      let user = readUserInput("one.txt".split(" "));
       assert.deepEqual(user, {
         count: 10,
         fileNames: ["one.txt"],
@@ -145,9 +145,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js one.txt two.txt", () => {
+  describe(" one.txt two.txt", () => {
     it("should have count= 10 & fileNames=[one.txt, two.txt] & option: line", () => {
-      let user = readUserInput("node head one.txt two.txt".split(" "));
+      let user = readUserInput("one.txt two.txt".split(" "));
       assert.deepEqual(user, {
         count: 10,
         fileNames: ["one.txt", "two.txt"],
@@ -155,9 +155,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -n5 one.txt ", () => {
+  describe(" -n5 one.txt ", () => {
     it("should have count= 5 & fileNames=[one.txt] & option: line", () => {
-      let user = readUserInput("node head -n5 one.txt".split(" "));
+      let user = readUserInput("-n5 one.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt"],
@@ -165,9 +165,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -n5 one.txt two.txt", () => {
+  describe(" -n5 one.txt two.txt", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: line", () => {
-      let user = readUserInput("node head -n5 one.txt two.txt".split(" "));
+      let user = readUserInput("-n5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt", "two.txt"],
@@ -175,9 +175,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -n 5 one.txt ", () => {
+  describe(" -n 5 one.txt ", () => {
     it("should have count= 5 & fileNames=[one.txt] & option: line", () => {
-      let user = readUserInput("node head -n 5 one.txt".split(" "));
+      let user = readUserInput("-n 5 one.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt"],
@@ -185,9 +185,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -n 5 one.txt two.txt", () => {
+  describe(" -n 5 one.txt two.txt", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: line", () => {
-      let user = readUserInput("node head -n 5 one.txt two.txt".split(" "));
+      let user = readUserInput("-n 5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt", "two.txt"],
@@ -195,9 +195,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -5 one.txt ", () => {
+  describe(" -5 one.txt ", () => {
     it("should have count= 5 & fileNames=[one.txt] & option: line", () => {
-      let user = readUserInput("node head -5 one.txt".split(" "));
+      let user = readUserInput("-5 one.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt"],
@@ -205,9 +205,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -5 one.txt two.txt", () => {
+  describe(" -5 one.txt two.txt", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: line", () => {
-      let user = readUserInput("node head -5 one.txt two.txt".split(" "));
+      let user = readUserInput("-5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt", "two.txt"],
@@ -215,9 +215,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -c10 one.txt ", () => {
+  describe(" -c10 one.txt ", () => {
     it("should have charcterCount= 10 & fileNames=[one.txt] & option: byte", () => {
-      let user = readUserInput("node head -c10 one.txt".split(" "));
+      let user = readUserInput("-c10 one.txt".split(" "));
       assert.deepEqual(user, {
         fileNames: ["one.txt"],
         count: 10,
@@ -225,9 +225,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -c5 one.txt two.txt", () => {
+  describe(" -c5 one.txt two.txt", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: byte", () => {
-      let user = readUserInput("node head -c5 one.txt two.txt".split(" "));
+      let user = readUserInput("-c5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt", "two.txt"],
@@ -235,9 +235,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -c 10 one.txt ", () => {
+  describe(" -c 10 one.txt ", () => {
     it("should have charcterCount= 10 & fileNames=[one.txt] & option: byte", () => {
-      let user = readUserInput("node head -c 10 one.txt".split(" "));
+      let user = readUserInput("-c 10 one.txt".split(" "));
       assert.deepEqual(user, {
         fileNames: ["one.txt"],
         count: 10,
@@ -245,9 +245,9 @@ describe("readUserInput", () => {
       });
     });
   });
-  describe("node head.js -c 5 one.txt two.txt", () => {
+  describe(" -c 5 one.txt two.txt", () => {
     it("should have count= 5 & fileNames=[one.txt, two.txt] & option: byte", () => {
-      let user = readUserInput("node head -c 5 one.txt two.txt".split(" "));
+      let user = readUserInput("-c 5 one.txt two.txt".split(" "));
       assert.deepEqual(user, {
         count: 5,
         fileNames: ["one.txt", "two.txt"],
