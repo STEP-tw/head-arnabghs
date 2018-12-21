@@ -29,6 +29,10 @@ const isOptionProvided = function(userArgs) {
   return isOptionByte(userArgs) || isOptionLine(userArgs);
 };
 
+const onlyDoubleDashArg = function(userArgs) {
+  return userArgs[0] == "--";
+};
+
 const readUserInput = function(userArgs) {
   const validOptionsList = { c: "byte", n: "line" };
   let userInput = { fileNames: userArgs, count: 10, option: "line" };
@@ -37,7 +41,7 @@ const readUserInput = function(userArgs) {
     userInput = getCountAndFilenames(userArgs, userInput);
     userInput.option = validOptionsList[userArgs[0][1]];
   }
-  //  console.log(userInput);
+  if (onlyDoubleDashArg(userArgs)) userInput.fileNames = userArgs.slice(1);
   return userInput;
 };
 
