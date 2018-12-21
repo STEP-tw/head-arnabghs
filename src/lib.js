@@ -64,12 +64,9 @@ const headAndTail = function(command, userArgs, fs) {
   return formatter[command](fs, userInputs);
 };
 
-const head = function(userArgs, fs) {
-  return headAndTail("head", userArgs, fs);
-};
-const tail = function(userArgs, fs) {
-  return headAndTail("tail", userArgs, fs);
-};
+const head = headAndTail.bind(null, "head");
+
+const tail = headAndTail.bind(null, "tail");
 
 module.exports = {
   getFirstNItems,
