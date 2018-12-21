@@ -18,15 +18,12 @@ const isOnlyNumber = function(userArgs) {
   return !isNaN(userArgs[0].charAt(1));
 };
 
-const isOptionByte = function(userArgs) {
-  return userArgs[0].startsWith("-c");
+const hasOption = function(userArgs) {
+  return userArgs[0].startsWith("-");
 };
 
-const isOptionLine = function(userArgs) {
-  return userArgs[0].startsWith("-n");
-};
-const isOptionProvided = function(userArgs) {
-  return isOptionByte(userArgs) || isOptionLine(userArgs);
+const isOptionValid = function(userArgs) {
+  return userArgs[0][1] == "n" || userArgs[0][1] == "c";
 };
 
 const onlyDoubleDashArg = function(userArgs) {
@@ -34,14 +31,19 @@ const onlyDoubleDashArg = function(userArgs) {
 };
 
 const readUserInput = function(userArgs) {
-  const validOptionsList = { c: "byte", n: "line" };
+  const validOptions = { c: "byte", n: "line" };
   let userInput = { fileNames: userArgs, count: 10, option: "line" };
   if (isOnlyNumber(userArgs)) return handleOnlyNumberCase(userArgs, userInput);
-  if (isOptionProvided(userArgs)) {
-    userInput = getCountAndFilenames(userArgs, userInput);
-    userInput.option = validOptionsList[userArgs[0][1]];
+  if (onlyDoubleDashArg(userArgs)) {
+    userInput.fileNames = userArgs.slice(1);
+    return userInput;
   }
-  if (onlyDoubleDashArg(userArgs)) userInput.fileNames = userArgs.slice(1);
+  if (hasOption(userArgs)) {
+    userInput = getCountAndFilenames(userArgs, userInput);
+    userInput.option = userArgs[0][1];
+    if (isOptionValid(userArgs))
+      userInput.option = validOptions[userArgs[0][1]];
+  }
   return userInput;
 };
 
@@ -49,8 +51,5 @@ module.exports = {
   getCountAndFilenames,
   handleOnlyNumberCase,
   isOnlyNumber,
-  isOptionByte,
-  isOptionLine,
-  isOptionProvided,
   readUserInput
 };

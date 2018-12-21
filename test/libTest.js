@@ -249,6 +249,14 @@ describe("head", () => {
       assert.deepEqual(head(argv, dummyfs), fiveAndFifteenLines);
     });
   });
+  describe("node head.js -x5 fifteenLines.txt", () => {
+    it("should give error message with usage", () => {
+      const argv = "-x5 fiveLines.txt".split(" ");
+      let expectedOutput = "head: illegal option -- x\n";
+      expectedOutput += "usage: head [-n lines | -c bytes] [file ...]";
+      assert.deepEqual(head(argv, dummyfs), expectedOutput);
+    });
+  });
 });
 
 describe("getFirstNItems", () => {
@@ -474,10 +482,19 @@ describe("tail", () => {
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
-  describe("-c -12 fifteenLines.txt", () => {
+  describe("node tail.js -c -12 fifteenLines.txt", () => {
     it("should return last 12 chars for -ve count also", () => {
       const argv = "-c -12 fifteenLines.txt".split(" ");
       let expectedOutput = "\n" + "12\n13\n14\n15";
+      assert.deepEqual(tail(argv, dummyfs), expectedOutput);
+    });
+  });
+  describe("node tail.js -x5 fifteenLines.txt", () => {
+    it("should give error message with usage", () => {
+      const argv = "-x5 fiveLines.txt".split(" ");
+      let expectedOutput = "tail: illegal option -- x\n";
+      expectedOutput +=
+        "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });

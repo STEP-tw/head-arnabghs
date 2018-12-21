@@ -4,9 +4,6 @@ const {
   getCountAndFilenames,
   handleOnlyNumberCase,
   isOnlyNumber,
-  isOptionByte,
-  isOptionLine,
-  isOptionProvided,
   readUserInput
 } = require("../src/parse.js");
 
@@ -71,64 +68,6 @@ describe("isOnlyNumber", () => {
     it("returns false even if option is given seperately from count", () => {
       let argv = "-n 5 one.txt".split(" ");
       let actualOutput = isOnlyNumber(argv);
-      assert.deepEqual(actualOutput, false);
-    });
-  });
-});
-
-describe("isOptionByte", () => {
-  describe("-c 5 one.txt", () => {
-    it("returns true when only option '-c' is given", () => {
-      let argv = "-c 5 one.txt".split(" ");
-      let actualOutput = isOptionByte(argv);
-      assert.deepEqual(actualOutput, true);
-    });
-  });
-  describe("-c5 one.txt", () => {
-    it("returns true when option '-c' is given with count", () => {
-      let argv = "-c5 one.txt".split(" ");
-      let actualOutput = isOptionByte(argv);
-      assert.deepEqual(actualOutput, true);
-    });
-  });
-});
-
-describe("isOptionLine", () => {
-  describe("-n 5 one.txt", () => {
-    it("returns true when only option '-n' is given", () => {
-      let argv = "-n 5 one.txt".split(" ");
-      let actualOutput = isOptionLine(argv);
-      assert.deepEqual(actualOutput, true);
-    });
-  });
-  describe("-n5 one.txt", () => {
-    it("returns true when option '-n' is given with count", () => {
-      let argv = "-n5 one.txt".split(" ");
-      let actualOutput = isOptionLine(argv);
-      assert.deepEqual(actualOutput, true);
-    });
-  });
-});
-
-describe("isOptionProvided", () => {
-  describe("-n5 one.txt", () => {
-    it("returns true if any of isOptionByte or isOptionLine is true", () => {
-      let argv = "-n5 one.txt".split(" ");
-      let actualOutput = isOptionProvided(argv);
-      assert.deepEqual(actualOutput, true);
-    });
-  });
-  describe("-c 5 one.txt", () => {
-    it("returns true if any of isOptionByte or isOptionLine is true", () => {
-      let argv = "-c 5 one.txt".split(" ");
-      let actualOutput = isOptionProvided(argv);
-      assert.deepEqual(actualOutput, true);
-    });
-  });
-  describe("-5 one.txt", () => {
-    it("returns true if any of isOptionByte or isOptionLine is true", () => {
-      let argv = "-5 one.txt".split(" ");
-      let actualOutput = isOptionProvided(argv);
       assert.deepEqual(actualOutput, false);
     });
   });
