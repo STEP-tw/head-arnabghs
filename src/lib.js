@@ -11,7 +11,8 @@ const getFirstNItems = function(delimeter, content, numberOfChars) {
 
 const getLastNItems = function(delimeter, content, numberOfLines) {
   if (numberOfLines == 0) return "";
-  let lines = content.trim().split(delimeter);
+  if (delimeter === "\n") content = content.trim(); //for trailing n/l char
+  let lines = content.split(delimeter);
   return lines.slice(-numberOfLines).join(delimeter);
 };
 

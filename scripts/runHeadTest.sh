@@ -31,23 +31,23 @@ node ./head.js -5 $input_file > .myHead
 echo "for format -> node ./head.js -5 file1"
 node scripts/compareHeads.js
 
-head $input_file $input_file2 > .sysHead
+head $input_file $input_file2 | sed '/^$/d' > .sysHead
 node ./head.js $input_file $input_file2 > .myHead
 echo "for format -> node ./head.js file1 file2"
 node scripts/compareHeads.js
 
-head -n 5 $input_file $input_file2 > .sysHead
+head -n 5 $input_file $input_file2 | sed '/^$/d' > .sysHead
 node ./head.js -n 5 $input_file $input_file2 > .myHead
 echo "for format -> node ./head.js -n 5 file1 file2"
 node scripts/compareHeads.js
 
 
-head -n5 $input_file $input_file2 > .sysHead
+head -n5 $input_file $input_file2 | sed '/^$/d' > .sysHead
 node ./head.js -n5 $input_file $input_file2 > .myHead
 echo "for format -> node ./head.js -n5 file1 file2"
 node scripts/compareHeads.js
 
-head -5 $input_file $input_file2 > .sysHead
+head -5 $input_file $input_file2 | sed '/^$/d' > .sysHead
 node ./head.js -5 $input_file $input_file2 > .myHead
 echo "for format -> node ./head.js -5 file1 file2"
 node scripts/compareHeads.js
@@ -62,24 +62,24 @@ node ./head.js -c 5 $input_file > .myHead
 echo "for format -> node ./head.js -c 5 file1"
 node scripts/compareHeads.js
 
-head -c5 $input_file $input_file2 > .sysHead
+head -c5 $input_file $input_file2 | sed '/^$/d' > .sysHead
 node ./head.js -c5 $input_file $input_file2 > .myHead
 echo "for format -> node ./head.js -c5 file1 file2"
 node scripts/compareHeads.js
 
-head -c 5 $input_file $input_file2 > .sysHead
+head -c 5 $input_file $input_file2 | sed '/^$/d' > .sysHead
 node ./head.js -c 5 $input_file $input_file2 > .myHead
 echo "for format -> node ./head.js -c 5 file1 file2"
 node scripts/compareHeads.js
 
 head -n11 $input_file > .sysHead
 node ./head.js -n11 $input_file > .myHead
-echo "for format -> node ./head.js -n11 file1 file2"
+echo "for format -> node ./head.js -n11 file1"
 node scripts/compareHeads.js
 
 head -n16 $input_file > .sysHead
 node ./head.js -n16 $input_file > .myHead
-echo "for format -> node ./head.js -n16 file1 file2"
+echo "for format -> node ./head.js -n16 file1"
 node scripts/compareHeads.js
 
 echo  "\nIllegal Cases\n"
