@@ -9,8 +9,12 @@ const createOptionErrorMsg = function(command, option, msg) {
   };
 };
 
+const isCountFaulty = function(count) {
+  return isNaN(count) || !Number.isInteger(+count);
+}
+
 const handleErrorForHead = function(count, option) {
-  if (isNaN(count) || count < 1) {
+  if (isCountFaulty(count) || count < 1) {
     return {
       errorExist: true,
       errorMsg: "head: illegal " + option + " count -- " + count
@@ -22,7 +26,7 @@ const handleErrorForHead = function(count, option) {
 };
 
 const handelErrorForTail = function(count, option) {
-  if (isNaN(count)) {
+  if (isCountFaulty(count)) {
     return { errorExist: true, errorMsg: "tail: illegal offset -- " + count };
   }
   if (option != "byte" && option != "line")

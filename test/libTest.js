@@ -257,6 +257,13 @@ describe("head", () => {
       assert.deepEqual(head(argv, dummyfs), expectedOutput);
     });
   });
+  describe("node head.js -n 2.5 fifteenLines.txt", () => {
+    it("should give error message with usage", () => {
+      const argv = "-n 2.5 fifteenLines.txt".split(" ");
+      let expectedOutput = "head: illegal line count -- 2.5";
+      assert.deepEqual(head(argv, dummyfs), expectedOutput);
+    });
+  });
 });
 
 describe("getFirstNItems", () => {
@@ -495,6 +502,13 @@ describe("tail", () => {
       let expectedOutput = "tail: illegal option -- x\n";
       expectedOutput +=
         "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]";
+      assert.deepEqual(tail(argv, dummyfs), expectedOutput);
+    });
+  });
+  describe("node tail.js -n 2.5 fifteenLines.txt", () => {
+    it("should give error message with usage", () => {
+      const argv = "-n 2.5 fifteenLines.txt".split(" ");
+      let expectedOutput = "tail: illegal offset -- 2.5";
       assert.deepEqual(tail(argv, dummyfs), expectedOutput);
     });
   });
