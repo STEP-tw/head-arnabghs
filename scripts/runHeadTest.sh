@@ -82,7 +82,7 @@ node ./head.js -n16 $input_file > .myHead
 echo "for format -> node ./head.js -n16 file1"
 node scripts/compareHeads.js
 
-echo  "\nIllegal Cases\n"
+echo  -e "\nIllegal Cases\n"
 
 head -x5 $input_file 2> .sysHead
 node ./head.js -x5 $input_file > .myHead

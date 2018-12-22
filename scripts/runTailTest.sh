@@ -78,7 +78,7 @@ node ./tail.js -n16 $input_file > .usrTail
 echo "for format -> node ./tail.js -n16 file1"
 node scripts/compareTails.js
 
-echo  "\nIllegal Cases\n"
+echo -e "\nIllegal Cases\n"
 
 tail -x5 $input_file 2> .sysTail
 node ./tail.js -x5 $input_file > .usrTail
