@@ -1,0 +1,26 @@
+{
+  "name": "head_and_tail",
+  "version": "1.0.0",
+  "description": "works as head and command of shell",
+  "main": "head.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node head.js ./textFiles/fiveLines.txt && node tail.js ./textFiles/fiveLines.txt",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEP-tw/head-arnabghs.git"
+  },
+  "author": "Arnab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STEP-tw/head-arnabghs/issues"
+  },
+  "homepage": "https://github.com/STEP-tw/head-arnabghs#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
