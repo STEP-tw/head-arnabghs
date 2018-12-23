@@ -3,5 +3,7 @@
 .nyc*
 coverage
 .myHead
+.usrTail
 .sysHead
+.sysTail
 node_modules
